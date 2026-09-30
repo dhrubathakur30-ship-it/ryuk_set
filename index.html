@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<meta content="#5b5bf7" name="theme-color"/>
+<title>Ryuk Study Set • Class 8</title>
+<style>
+:root{
+  --bg:#f6f8fc; --card:#fff; --text:#172033; --muted:#667085;
+  --pri:#5b5bf7; --pri2:#8b5cf6; --line:#e6eaf1;
+  --shadow:0 14px 38px rgba(30,41,59,.10); --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+body.dark{--bg:#0d1220;--card:#171d2b;--text:#f7f8ff;--muted:#aeb7c9;--line:#2c3546;--shadow:0 14px 38px rgba(0,0,0,.28)}
+
+.header{
+  position:sticky;top:0;z-index:50;color:#fff;
+  background:linear-gradient(120deg,#5148f5,#7c3aed 55%,#9f67ff);
+  box-shadow:0 8px 28px rgba(79,70,229,.22);
+}
+.header-inner{max-width:1180px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
+.brand-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#ffffff1b;border:1px solid #ffffff30;box-shadow:inset 0 1px #ffffff22}
+.brand-text{font-size:18px}.brand-sub{font-size:11px;opacity:.82;font-weight:700;margin-top:2px}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.top-btn{border:1px solid #ffffff22;background:#ffffff15;color:#fff;padding:10px 13px;border-radius:12px;font-weight:800}
+.top-btn:hover{background:#ffffff25}
+
+.welcome{max-width:1180px;margin:24px auto 0;padding:0 18px}
+.welcome-card{
+  position:relative;overflow:hidden;border-radius:30px;padding:38px 26px;color:#fff;
+  background:
+    radial-gradient(circle at 10% 10%,#ffffff22 0 12%,transparent 13%),
+    radial-gradient(circle at 90% 20%,#ffffff18 0 10%,transparent 11%),
+    linear-gradient(135deg,#141a33 0%,#3a2f86 50%,#7c3aed 100%);
+  box-shadow:0 24px 65px rgba(50,40,130,.25);
+}
+.glow{position:absolute;width:220px;height:220px;border-radius:50%;right:-60px;bottom:-100px;background:#fff2;filter:blur(8px)}
+.welcome-center{max-width:820px;margin:auto;text-align:center;position:relative}
+.badge{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;background:#ffffff16;border:1px solid #ffffff2c;font-weight:900;font-size:12px;letter-spacing:1.3px}
+.welcome h1{font-size:clamp(34px,7vw,68px);line-height:1.02;margin:16px 0 10px}
+.welcome p{margin:0;color:#ecebff;font-size:17px}
+.chips{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:20px}
+.chip{padding:9px 12px;border-radius:999px;background:#ffffff13;border:1px solid #ffffff25;font-size:13px;font-weight:800}
+
+.hero{max-width:1180px;margin:auto;padding:28px 18px 16px}
+.hero-row{display:flex;align-items:end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.hero-title h2{font-size:30px;margin:0 0 7px}.hero-title p{margin:0;color:var(--muted)}
+.search{width:min(520px,100%);position:relative}
+.search input{width:100%;padding:14px 48px 14px 17px;border:1px solid var(--line);border-radius:15px;background:var(--card);color:var(--text);outline:none;box-shadow:0 5px 18px rgba(30,41,59,.05)}
+.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);opacity:.55}
+
+.wrap{max-width:1180px;margin:auto;padding:4px 18px 60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:18px}
+
+.subject-card{
+  position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);
+  border-radius:24px;padding:22px;box-shadow:var(--shadow);transition:.22s;
+}
+.subject-card:hover{transform:translateY(-5px);box-shadow:0 18px 42px rgba(30,41,59,.15)}
+.subject-card:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--accent,#5b5bf7);opacity:.10}
+.subject-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.subject-icon{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-size:28px;background:var(--soft,#eef0ff)}
+.chevron{font-size:22px;opacity:.55}.kicker{font-size:11px;font-weight:900;color:var(--pri);letter-spacing:1.2px;margin-top:16px}
+.subject-card h3{font-size:20px;margin:7px 0 8px}.subject-card p{margin:0;color:var(--muted);line-height:1.48}
+
+.panel{display:none}
+.back{background:var(--pri);color:#fff;margin-bottom:16px;border:0;padding:11px 15px;border-radius:12px;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:var(--shadow)}
+.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted)}
+
+.set-card{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:19px;box-shadow:var(--shadow);transition:.2s}
+.set-card:hover{transform:translateY(-4px)}
+.set-row{display:flex;align-items:center;gap:13px}.set-icon{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#eef0ff,#f3eaff);display:grid;place-items:center;font-size:25px}
+.set-card h3{margin:0;font-size:18px}.set-card p{margin:7px 0 0;color:var(--muted);font-size:13px}
+.set-line{margin-top:13px;display:flex;gap:8px;flex-wrap:wrap}.pill{font-size:11px;padding:6px 8px;background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--muted);font-weight:800}
+
+.notice{padding:14px 15px;border-left:4px solid var(--pri);background:#eef0ff;border-radius:11px;margin:15px 0;line-height:1.5}
+body.dark .notice{background:#212a45}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:13px 0;box-shadow:0 8px 22px rgba(30,41,59,.05)}
+.qa-meta{font-size:12px;color:var(--muted);margin-bottom:8px}.qa h3{margin:0 0 12px;line-height:1.45}
+.answer{display:none;background:#eef2ff;padding:14px;border-radius:11px;margin-top:11px;line-height:1.6}
+body.dark .answer{background:#202942}
+
+.action{border:0;padding:10px 14px;border-radius:11px;font-weight:800}.primary{background:var(--pri);color:#fff}.secondary{background:var(--bg);color:var(--text);border:1px solid var(--line)}.danger{background:#dc2626;color:#fff}.good{background:#16a34a;color:#fff}
+
+.source-page{display:block;width:100%;max-width:920px;margin:10px auto 20px;border:1px solid var(--line);border-radius:14px}
+.file-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0}
+.file-title{font-weight:900;overflow-wrap:anywhere}.file-meta{font-size:12px;color:var(--muted);margin:6px 0 10px}
+.preview{width:100%;max-height:520px;object-fit:contain;border:1px solid var(--line);border-radius:12px}.pdf{width:100%;height:650px;border:1px solid var(--line);border-radius:12px}
+
+.admin-box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:21px;margin-top:16px;box-shadow:var(--shadow)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab{border:1px solid var(--line);background:var(--bg);color:var(--text)}.tab.active{background:var(--pri);color:#fff}
+label{font-size:13px;font-weight:800;display:block;margin-top:7px}
+input,textarea,select{width:100%;padding:12px 13px;margin:6px 0 12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text);outline:none}textarea{min-height:120px;resize:vertical}
+.help{font-size:12px;color:var(--muted);line-height:1.5}.status{display:none;padding:11px 13px;border-radius:10px;margin-top:12px;background:#ecfdf3;color:#166534;font-size:13px;font-weight:800}
+.drop{border:2px dashed #b9c0ff;background:#f8f8ff;padding:22px;text-align:center;border-radius:16px}.drop.drag{border-color:var(--pri);background:#eef0ff}
+body.dark .drop{background:#171d2b}
+.manage-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.manage-row:last-child{border-bottom:0}
+.manage-text{min-width:0}.manage-text b{display:block;overflow-wrap:anywhere}.manage-text span{font-size:12px;color:var(--muted)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+footer{text-align:center;padding:34px 18px;color:var(--muted);border-top:1px solid var(--line)}
+.small{font-size:12px}.hidden{display:none!important}
+@media(max-width:720px){
+  .header-inner{align-items:flex-start;flex-direction:column}.nav{width:100%}
+  .top-btn{flex:1}.hero-row{align-items:stretch}.search{width:100%}
+  .welcome-card{padding:32px 18px}
+}
+
+.post{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin:16px 0;box-shadow:var(--shadow)}
+.post-head{display:flex;align-items:center;gap:11px;justify-content:space-between}
+.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#5b5bf7,#8b5cf6);color:#fff;font-weight:900}
+.author{font-weight:900}.post-time{font-size:12px;color:var(--muted)}
+.post-caption{line-height:1.6;margin:14px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.post-media{width:100%;max-height:650px;object-fit:contain;border-radius:15px;background:#0b1020;margin-top:4px}
+.post-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.like-btn.liked{background:#fee2e2;color:#dc2626;border-color:#fecaca}
+.comment-row{display:flex;gap:8px;margin-top:12px}.comment-row input{margin:0;flex:1}
+.comment{padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}.comment:last-child{border-bottom:0}
+.empty-feed{padding:35px 15px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:18px}
+
+
+/* ===== V7 ADMIN CONTROL PANEL ADDITIONS ===== */
+.master-grid{display:grid;grid-template-columns:220px 1fr;gap:16px}
+.master-side{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow);height:max-content}
+.master-side button{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--text);padding:11px;border-radius:10px;font-weight:800;margin:3px 0}
+.master-side button:hover,.master-side button.active{background:#eef0ff;color:var(--pri)}
+body.dark .master-side button:hover,body.dark .master-side button.active{background:#202942}
+.master-main{min-width:0}.master-panel{display:none}.master-panel.active{display:block}
+.master-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:14px 0}
+.master-stat{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:14px;box-shadow:var(--shadow)}
+.master-stat b{display:block;font-size:24px}.master-stat span{font-size:12px;color:var(--muted)}
+.master-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.master-row:last-child{border-bottom:0}.master-item{min-width:0;overflow-wrap:anywhere}.master-item b{display:block}.master-item span{font-size:12px;color:var(--muted)}
+.master-mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.master-mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.master-toggle{position:relative;width:48px;height:27px;display:inline-block}.master-toggle input{opacity:0;width:0;height:0}
+.master-slider{position:absolute;inset:0;background:#cbd5e1;border-radius:999px;cursor:pointer;transition:.2s}
+.master-slider:before{content:"";position:absolute;width:21px;height:21px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.master-toggle input:checked+.master-slider{background:var(--pri)}.master-toggle input:checked+.master-slider:before{transform:translateX(21px)}
+.master-banner{background:linear-gradient(135deg,#111827,#3b2f88,#7c3aed);color:#fff;border-radius:18px;padding:20px;margin-bottom:15px}
+.master-note{background:#eef0ff;padding:12px 14px;border-radius:10px;line-height:1.5}
+body.dark .master-note{background:#202942}
+@media(max-width:850px){.master-grid{grid-template-columns:1fr}.master-side{position:static}}
+
+
+/* ===== V8 ADD-ON MODULES — V7 DESIGN PRESERVED ===== */
+.chat-shell{display:grid;grid-template-columns:280px 1fr;gap:14px}
+.chat-list,.chat-window{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.chat-list-head,.chat-window-head{padding:14px;border-bottom:1px solid var(--line)}
+.chat-list-items{max-height:560px;overflow:auto}.chat-item{padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer}.chat-item:hover,.chat-item.active{background:var(--bg)}
+.chat-item b{display:block}.chat-item span{display:block;color:var(--muted);font-size:12px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-msgs{height:430px;overflow:auto;padding:15px;background:linear-gradient(180deg,var(--bg),var(--card))}
+.bubble-row{display:flex;margin:7px 0}.bubble-row.mine{justify-content:flex-end}.bubble{max-width:min(78%,520px);padding:10px 12px;border-radius:16px;background:var(--bg);border:1px solid var(--line);white-space:pre-wrap;overflow-wrap:anywhere}.bubble-row.mine .bubble{background:#eef0ff;border-color:#dfe3ff}.bubble small{display:block;color:var(--muted);font-size:10px;margin-top:5px}.chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}.chat-compose textarea{margin:0;min-height:48px;max-height:110px}.chat-compose input[type=file]{display:none}
+.chat-tools{display:flex;gap:8px;flex-wrap:wrap;padding:12px;border-bottom:1px solid var(--line)}
+.chat-empty{height:100%;min-height:430px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.chat-members{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.member-pill{font-size:11px;padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
+.reel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.reel-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}.reel-card video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#080b14}.reel-body{padding:13px}.reel-meta{font-size:12px;color:var(--muted);margin-bottom:7px}.reel-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.reel-comments{margin-top:10px;border-top:1px solid var(--line);padding-top:9px}.reel-comment{font-size:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.badge-num{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:#ef4444;color:#fff;font-size:11px;font-weight:900}
+@media(max-width:850px){.chat-shell{grid-template-columns:1fr}.chat-list-items{max-height:260px}.chat-msgs{height:420px}}
+
+
+
+/* =========================================================
+   V9 SOCIAL-STYLE FRONT PAGE DASHBOARD
+   Keeps all existing V7/V8 panels and JS; changes only HOME.
+========================================================= */
+body.dashboard-home{background:#f6f6fb}
+body.dashboard-home .header,
+body.dashboard-home .welcome,
+body.dashboard-home .hero{display:none!important}
+body.dashboard-home main.wrap{max-width:none;padding:0;margin:0}
+body.dashboard-home footer{display:none}
+.dashboard-shell{
+  min-height:100vh;
+  max-width:1500px;
+  margin:0 auto;
+  padding:18px;
+  display:grid;
+  grid-template-columns:240px minmax(0,1fr) 285px;
+  gap:18px;
+}
+.dashboard-side,.dashboard-right,.dash-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:0 10px 30px rgba(30,41,59,.07);
+}
+.dashboard-side{
+  position:sticky;top:18px;height:calc(100vh - 36px);
+  border-radius:24px;padding:18px 14px;
+  display:flex;flex-direction:column;
+}
+.dash-brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px}
+.dash-brand-mark{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#6d5dfc,#a15cf4);color:#fff;font-weight:900;
+  box-shadow:0 8px 18px rgba(91,91,247,.25)
+}
+.dash-brand b{display:block;font-size:16px}.dash-brand span{display:block;font-size:10px;color:var(--muted);font-weight:800;margin-top:2px}
+.dash-nav{display:flex;flex-direction:column;gap:5px}
+.dash-nav button{
+  border:0;background:transparent;color:var(--text);padding:11px 12px;border-radius:12px;
+  text-align:left;font-weight:800;display:flex;align-items:center;gap:11px
+}
+.dash-nav button:hover,.dash-nav button.active{background:#f0edff;color:var(--pri)}
+body.dark .dash-nav button:hover,body.dark .dash-nav button.active{background:#242039}
+.dash-divider{height:1px;background:var(--line);margin:12px 6px}
+.dash-profile{
+  margin-top:auto;padding:12px;border-radius:15px;background:var(--bg);
+  display:flex;align-items:center;gap:9px
+}
+.dash-profile .avatar{width:38px;height:38px}
+.dash-profile-text{min-width:0}.dash-profile-text b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-profile-text span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.dash-icon-btn{border:0;background:transparent;color:var(--muted);font-size:17px;padding:6px}
+
+.dashboard-main{min-width:0}
+.dashboard-top{
+  display:flex;align-items:center;justify-content:space-between;gap:15px;margin:2px 0 14px;
+}
+.dashboard-top h2{font-size:27px;margin:0 0 3px}.dashboard-top p{margin:0;color:var(--muted);font-size:13px}
+.dash-search{width:min(360px,48vw);position:relative}
+.dash-search input{
+  margin:0;padding:11px 16px 11px 42px;background:var(--card);
+  border-radius:14px
+}
+.dash-search span{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.5}
+.dash-stories{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px
+}
+.dash-story{
+  min-height:88px;border-radius:17px;border:1px solid var(--line);padding:12px;
+  background:linear-gradient(180deg,var(--card),var(--bg));cursor:pointer;
+  transition:.18s;position:relative;overflow:hidden
+}
+.dash-story:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(30,41,59,.08)}
+.dash-story .circle{
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,#eae7ff,#f6eafe);font-size:18px;margin-bottom:8px
+}
+.dash-story b{font-size:12px}.dash-story span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+
+.dash-card{border-radius:20px;padding:16px;margin-bottom:14px}
+.dash-composer{display:flex;align-items:center;gap:11px}
+.dash-composer .avatar{width:42px;height:42px;flex:0 0 auto}
+.dash-composer button{
+  flex:1;border:1px solid var(--line);background:var(--bg);color:var(--muted);
+  padding:11px 13px;border-radius:13px;text-align:left;font-weight:700
+}
+.dash-tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;padding-left:53px}
+.dash-tool{border:0;background:transparent;color:var(--muted);padding:7px 9px;border-radius:10px;font-size:12px;font-weight:800}
+.dash-tool:hover{background:var(--bg);color:var(--text)}
+
+.dashboard-main .stats{grid-template-columns:repeat(4,minmax(0,1fr));margin:0 0 14px}
+.dashboard-main .stat{padding:13px 14px;border-radius:16px;box-shadow:none}
+.dashboard-main .stat b{font-size:20px}
+
+.dash-section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:4px 0 10px}
+.dash-section-head h3{margin:0;font-size:18px}.dash-section-head button{border:0;background:transparent;color:var(--pri);font-weight:800;font-size:12px}
+.dashboard-main #subjectGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.dashboard-main .subject-card{
+  border-radius:17px;padding:15px;box-shadow:none;min-height:150px
+}
+.dashboard-main .subject-card:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(30,41,59,.08)}
+.dashboard-main .subject-icon{width:42px;height:42px;border-radius:13px;font-size:22px}
+.dashboard-main .kicker{margin-top:10px;font-size:9px}
+.dashboard-main .subject-card h3{font-size:16px;margin:5px 0}
+.dashboard-main .subject-card p{font-size:12px}
+.dashboard-main .pill{font-size:9px;padding:5px 7px}
+
+.dash-mini-reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.dash-reel{
+  border-radius:16px;overflow:hidden;background:#111827;border:1px solid var(--line);
+  cursor:pointer;position:relative;min-height:170px
+}
+.dash-reel video{width:100%;height:190px;object-fit:cover;display:block;background:#0d1324}
+.dash-reel .overlay{
+  position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;
+  background:linear-gradient(transparent,rgba(0,0,0,.85))
+}
+.dash-reel .overlay b{font-size:11px}.dash-reel .overlay span{font-size:10px;opacity:.85;display:block;margin-top:2px}
+.dash-reel-empty{
+  padding:24px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);text-align:center
+}
+
+.dashboard-right{position:sticky;top:18px;height:max-content;border-radius:24px;padding:16px}
+.right-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.right-head h3{font-size:15px;margin:0}.right-head button{border:0;background:transparent;color:var(--pri);font-weight:800;font-size:11px}
+.right-profile{
+  padding:15px;border-radius:17px;background:linear-gradient(145deg,#f4f0ff,#f9f6ff);
+  border:1px solid #ebe7ff
+}
+body.dark .right-profile{background:#211c3b;border-color:#38305c}
+.right-profile-row{display:flex;align-items:center;gap:10px}
+.right-profile .avatar{width:46px;height:46px}
+.right-profile b{display:block;font-size:14px}.right-profile span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.right-btn-row{display:flex;gap:7px;margin-top:12px}
+.right-btn-row button{flex:1}
+.dash-quick{
+  margin-top:14px
+}
+.quick-item{
+  display:flex;align-items:center;gap:9px;padding:10px 5px;border-bottom:1px solid var(--line)
+}
+.quick-item:last-child{border-bottom:0}
+.quick-dot{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:#f1efff}
+body.dark .quick-dot{background:#282345}
+.quick-item b{font-size:12px}.quick-item span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.dash-notice{margin-top:14px;padding:12px;border-radius:14px;background:#f4f2ff;color:var(--text);font-size:11px;line-height:1.45}
+body.dark .dash-notice{background:#242039}
+.dash-notice b{display:block;margin-bottom:4px}
+
+.dashboard-mobilebar{display:none}
+
+@media(max-width:1120px){
+  .dashboard-shell{grid-template-columns:205px minmax(0,1fr)}
+  .dashboard-right{display:none}
+}
+@media(max-width:760px){
+  .dashboard-shell{display:block;padding:10px}
+  .dashboard-side{
+    position:static;height:auto;border-radius:18px;margin-bottom:10px;padding:10px
+  }
+  .dash-brand{padding:4px 6px 9px}
+  .dash-nav{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px
+  }
+  .dash-nav button{justify-content:center;text-align:center;padding:9px 5px;font-size:11px;gap:5px}
+  .dash-nav button span.dash-label{display:none}
+  .dash-divider,.dash-profile{display:none}
+  .dashboard-top{display:block}.dashboard-top h2{font-size:23px}
+  .dash-search{width:100%;margin-top:10px}
+  .dash-stories{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dashboard-main .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dashboard-main #subjectGrid{grid-template-columns:1fr}
+  .dash-mini-reels{grid-template-columns:1fr}
+  .dash-reel video{height:250px}
+  .dash-tools{padding-left:0}
+}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-inner">
+<div class="brand">
+<div class="brand-mark">
+<svg aria-hidden="true" height="30" viewbox="0 0 64 64" width="30">
+<rect fill="#fff" height="44" opacity=".96" rx="9" width="40" x="12" y="10"></rect>
+<path d="M20 22h24M20 30h18M20 38h24M20 46h14" stroke="#5b5bf7" stroke-linecap="round" stroke-width="4"></path>
+<path d="M44 41l5-5 5 5-5 5z" fill="#8b5cf6"></path>
+</svg>
+</div>
+<div><div class="brand-text">RYUK STUDY SET</div><div class="brand-sub">CLASS 8 • OLD IS GOLD 2083</div></div>
+</div>
+<div class="nav">
+<button class="top-btn" onclick="goHome()">🏠 Home</button>
+<button class="top-btn" onclick="openCommunity()">👥 Community</button>
+<button class="top-btn" onclick="openChat()">💬 Chat <span class="badge-num hidden" id="chatBadge">0</span></button>
+<button class="top-btn" onclick="openReels()">🎬 Reels</button>
+<button class="top-btn" id="accountBtn" onclick="openAccount()">👤 Login / Sign Up</button>
+<button class="top-btn" onclick="openAdminLogin()">🔐 Admin</button>
+<button class="top-btn" onclick="toggleDark()">🌙 Dark</button>
+</div>
+</div>
+</header>
+<section class="welcome">
+<div class="welcome-card">
+<div class="glow"></div>
+<div class="welcome-center">
+<div class="badge">✨ WELCOME TO</div>
+<h1>RYUK STUDY SET</h1>
+<p>Class 8 Question &amp; Answer Hub • Old Is Gold 2083</p>
+<div class="chips">
+<span class="chip">📚 All Subjects</span>
+<span class="chip">📝 Model Sets</span>
+<span class="chip">✅ Answers</span>
+<span class="chip">📄 PDFs &amp; Photos</span>
+</div>
+</div>
+</div>
+</section>
+<section class="hero">
+<div class="hero-row">
+<div class="hero-title">
+<h2>📚 All Class 8 Subjects</h2>
+<p>Pick a subject → choose Set 1–10 → study questions, answers and uploaded material.</p>
+</div>
+<div class="search">
+<input autocomplete="off" id="search" oninput="searchAll()" placeholder="🔍 Search added questions..."/>
+<span class="search-icon">⌕</span>
+</div>
+</div>
+</section>
+<div class="wrap hidden" id="announcementBox" style="padding-top:0;padding-bottom:0"><div class="notice" id="publicNotice"></div></div>
+<main class="wrap">
+<section class="panel" id="community">
+<button class="back" onclick="goHome()">← Back to Website</button>
+<div class="hero-row">
+<div class="hero-title">
+<h2>👥 RYUK Community</h2>
+<p>Share study photos, short videos, notes and helpful text with the Class 8 community.</p>
+</div>
+<button class="action primary" onclick="openPostComposer()">➕ Create Post</button>
+</div>
+<div class="admin-box hidden" id="communityComposer">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+<div><h3 style="margin:0">✨ Create a Post</h3><p class="muted" style="margin:5px 0">Share only study-related material.</p></div>
+<button class="action secondary" onclick="closePostComposer()">✕</button>
+</div>
+<div class="notice hidden" id="postLoginNotice">
+      🔐 Please <button class="action primary" onclick="openAccount()">Login / Sign Up</button> before posting.
+    </div>
+<div id="postForm">
+<label>Post text / caption</label>
+<textarea id="postText" placeholder="Write a study tip, question, note or caption..."></textarea>
+<label>Photo or video (optional)</label>
+<input accept="image/*,video/*" id="postMedia" type="file"/>
+<div class="small muted" id="postMediaName"></div>
+<div id="postPreview"></div>
+<button class="action primary" onclick="createPost()">🚀 Publish Post</button>
+<div class="status" id="postStatus"></div>
+</div>
+</div>
+<div class="stats" id="feedStats"></div>
+<div id="feed"></div>
+</section>
+<section class="panel" id="chat">
+<button class="back" onclick="goHome()">← Back to Website</button>
+<div class="hero-row">
+<div class="hero-title"><h2>💬 Messages</h2><p>Private chat and group chat for the Ryuk Study Set community.</p></div>
+<div class="set-line">
+<button class="action primary" onclick="startNewDM()">➕ New Chat</button>
+<button class="action secondary" onclick="openCreateGroup()">👥 Create Group</button>
+</div>
+</div>
+<div class="chat-shell">
+<div class="chat-list">
+<div class="chat-list-head"><input id="chatSearch" oninput="renderChatList()" placeholder="🔎 Search chats..." style="margin:0"/></div>
+<div class="chat-list-items" id="chatListItems"></div>
+</div>
+<div class="chat-window">
+<div class="chat-window-head" id="chatWindowHead"><b>Select a conversation</b><div class="small muted">Start a private or group chat.</div></div>
+<div class="chat-tools hidden" id="chatWindowTools"></div>
+<div class="chat-msgs" id="chatMessages"><div class="chat-empty"><div><div style="font-size:46px">💬</div><h3>No chat selected</h3><p>Choose a conversation from the left.</p></div></div></div>
+<div class="chat-compose hidden" id="chatComposer">
+<input accept="image/*,video/*" id="chatAttachment" type="file"/>
+<button class="action secondary" onclick="document.getElementById('chatAttachment').click()">📎</button>
+<textarea id="chatText" onkeydown="chatKey(event)" placeholder="Write a message..."></textarea>
+<button class="action primary" onclick="sendChatMessage()">➤</button>
+</div>
+<div class="small" id="chatStatus" style="padding:0 12px 12px"></div>
+</div>
+</div>
+<div class="admin-box hidden" id="newChatBox" style="max-width:620px;margin:16px auto 0"></div>
+</section>
+<section class="panel" id="reels">
+<button class="back" onclick="goHome()">← Back to Website</button>
+<div class="hero-row">
+<div class="hero-title"><h2>🎬 Ryuk Reels</h2><p>Short study videos, tips, tricks and Class 8 learning clips.</p></div>
+<button class="action primary" onclick="openReelComposer()">➕ Upload Reel</button>
+</div>
+<div class="admin-box hidden" id="reelComposer">
+<h3 style="margin-top:0">🎬 Create a Reel</h3>
+<label>Caption</label>
+<textarea id="reelCaption" placeholder="Write a short study caption..."></textarea>
+<label>Video</label>
+<input accept="video/*" id="reelFile" onchange="previewReel()" type="file"/>
+<div id="reelPreview"></div>
+<button class="action primary" onclick="publishReel()">🚀 Publish Reel</button>
+<div class="status" id="reelStatus"></div>
+</div>
+<div class="stats" id="reelStats"></div>
+<div class="reel-grid" id="reelFeed"></div>
+</section>
+<section class="panel" id="account">
+<button class="back" onclick="goHome()">← Back to Website</button>
+<div class="admin-box" style="max-width:560px;margin:0 auto">
+<div style="text-align:center">
+<div style="font-size:52px">👤</div>
+<h2 id="accountTitle">Welcome to RYUK Study Set</h2>
+<p class="muted">Use your Gmail address and create a password for this website.</p>
+</div>
+<div class="tabs" style="justify-content:center;margin-top:18px">
+<button class="action tab active" id="loginTabBtn" onclick="switchAccountTab('login')">🔐 Login</button>
+<button class="action tab" id="signupTabBtn" onclick="switchAccountTab('signup')">✨ Sign Up</button>
+</div>
+<div id="loginForm">
+<label>Gmail</label>
+<input autocomplete="username" id="loginEmail" placeholder="example@gmail.com" type="email"/>
+<label>Password</label>
+<input autocomplete="current-password" id="loginPassword" placeholder="Your website password" type="password"/>
+<button class="action primary" onclick="userLogin()" style="width:100%">🔓 Login</button>
+<p class="small" id="loginStatus" style="margin-top:10px"></p>
+<p class="help">Use the same Gmail and website password you used when signing up.</p>
+</div>
+<div class="hidden" id="signupForm">
+<label>Gmail</label>
+<input autocomplete="email" id="signupEmail" placeholder="example@gmail.com" type="email"/>
+<label>Create Password</label>
+<input autocomplete="new-password" id="signupPassword" placeholder="At least 6 characters" type="password"/>
+<label>Confirm Password</label>
+<input autocomplete="new-password" id="signupConfirm" placeholder="Type password again" type="password"/>
+<button class="action primary" onclick="userSignup()" style="width:100%">🚀 Create Account</button>
+<p class="small" id="signupStatus" style="margin-top:10px"></p>
+<p class="help">This static V6 checks that the address ends with <b>@gmail.com</b>. It does not send a verification email.</p>
+</div>
+<div class="hidden" id="accountLoggedIn" style="text-align:center">
+<div style="font-size:52px">🎉</div>
+<h2>You are logged in!</h2>
+<p class="muted" id="loggedInEmail"></p>
+<button class="action primary" onclick="goHome()">📚 Start Studying</button>
+<button class="action danger" onclick="userLogout()">🚪 Logout</button>
+</div>
+</div>
+</section>
+<section id="home">
+<div class="dashboard-shell">
+<aside class="dashboard-side">
+<div class="dash-brand">
+<div class="dash-brand-mark">📚</div>
+<div><b>RYUK STUDY SET</b><span>CLASS 8 • 2083</span></div>
+</div>
+<nav aria-label="Main navigation" class="dash-nav">
+<button class="active" onclick="goHome()">🏠 <span class="dash-label">Home</span></button>
+<button onclick="document.getElementById('dashSubjects')?.scrollIntoView({behavior:'smooth'})">📚 <span class="dash-label">Subjects</span></button>
+<button onclick="openCommunity()">👥 <span class="dash-label">Community</span></button>
+<button onclick="openReels()">🎬 <span class="dash-label">Reels</span></button>
+<button onclick="openChatCenter()">💬 <span class="dash-label">Messages</span><span class="pill hidden" id="dashboardChatBadge" style="margin-left:auto;background:#fee2e2;color:#dc2626">0</span></button>
+<button onclick="openAccount()">👤 <span class="dash-label">Profile</span></button>
+<button onclick="openAdminLogin()">🛡️ <span class="dash-label">Admin</span></button>
+<button onclick="toggleDark()">🌙 <span class="dash-label">Dark mode</span></button>
+</nav>
+<div class="dash-divider"></div>
+<div class="dash-profile">
+<div class="avatar" id="dashAvatar">S</div>
+<div class="dash-profile-text">
+<b id="dashProfileName">Student</b>
+<span id="dashProfileSub">Login to personalize</span>
+</div>
+<button class="dash-icon-btn" onclick="openAccount()">→</button>
+</div>
+</aside>
+<section class="dashboard-main">
+<div class="dashboard-top">
+<div>
+<h2>Welcome back, learner 👋</h2>
+<p>Study, share notes and connect with the Ryuk community.</p>
+</div>
+<div class="dash-search">
+<span>🔍</span>
+<input autocomplete="off" id="dashSearchInput" oninput="syncDashSearch()" placeholder="Search questions..."/>
+</div>
+</div>
+<div class="dash-stories">
+<div class="dash-story" onclick="document.getElementById('dashSubjects')?.scrollIntoView({behavior:'smooth'})"><div class="circle">📚</div><b>Subjects</b><span>Class 8 study sets</span></div>
+<div class="dash-story" onclick="openCommunity()"><div class="circle">👥</div><b>Community</b><span>Study posts &amp; notes</span></div>
+<div class="dash-story" onclick="openReels()"><div class="circle">🎬</div><b>Reels</b><span>Short study videos</span></div>
+<div class="dash-story" onclick="openChatCenter()"><div class="circle">💬</div><b>Messages</b><span>Private &amp; group chat</span></div>
+</div>
+<div class="dash-card">
+<div class="dash-composer">
+<div class="avatar" id="dashComposerAvatar">S</div>
+<button onclick="openPostComposer()">What's new for you? Share a study note, question or update...</button>
+</div>
+<div class="dash-tools">
+<button class="dash-tool" onclick="openPostComposer()">🖼️ Photo</button>
+<button class="dash-tool" onclick="openPostComposer()">🎥 Video</button>
+<button class="dash-tool" onclick="openReels()">🎬 Create Reel</button>
+<button class="dash-tool" onclick="openChatCenter()">💬 Message</button>
+</div>
+</div>
+<div class="dash-section-head">
+<div><h3>📊 Study overview</h3></div>
+<button onclick="document.getElementById('dashSubjects')?.scrollIntoView({behavior:'smooth'})">View all →</button>
+</div>
+<div class="stats" id="subjectStats"></div>
+<div class="dash-section-head" id="dashSubjects" style="margin-top:16px">
+<div><h3>📚 Your Class 8 subjects</h3><p class="small muted" style="margin:4px 0 0">Tap a subject to open Model Set 1–10.</p></div>
+</div>
+<div class="grid" id="subjectGrid"></div>
+<div class="dash-section-head" style="margin-top:19px">
+<div><h3>🎬 Latest study reels</h3></div>
+<button onclick="openReels()">See all →</button>
+</div>
+<div id="homeReelPreview"></div>
+</section>
+<aside class="dashboard-right">
+<div class="right-profile">
+<div class="right-profile-row">
+<div class="avatar" id="rightAvatar">S</div>
+<div><b id="rightName">Student</b><span id="rightEmail">Not logged in</span></div>
+</div>
+<div class="right-btn-row">
+<button class="action primary" onclick="openAccount()">Profile</button>
+<button class="action secondary" onclick="openCommunity()">Community</button>
+</div>
+</div>
+<div class="dash-quick">
+<div class="right-head"><h3>⚡ Quick access</h3></div>
+<div class="quick-item" onclick="document.getElementById('dashSubjects')?.scrollIntoView({behavior:'smooth'})" style="cursor:pointer">
+<div class="quick-dot">📝</div><div><b>Model Questions</b><span>Old Is Gold 2083 sets</span></div>
+</div>
+<div class="quick-item" onclick="openCommunity()" style="cursor:pointer">
+<div class="quick-dot">👥</div><div><b>Study Community</b><span>Share helpful material</span></div>
+</div>
+<div class="quick-item" onclick="openReels()" style="cursor:pointer">
+<div class="quick-dot">🎬</div><div><b>Short Reels</b><span>Watch study videos</span></div>
+</div>
+<div class="quick-item" onclick="openChatCenter()" style="cursor:pointer">
+<div class="quick-dot">💬</div><div><b>Messages</b><span>Private &amp; group chats</span></div>
+</div>
+</div>
+<div class="dash-quick">
+<div class="right-head"><h3>📌 Site notice</h3></div>
+<div class="dash-notice" id="dashNotice"><b>Welcome to Ryuk Study Set</b>Study Class 8 questions, upload material from Admin and use the community features.</div>
+</div>
+<div class="dash-quick">
+<div class="right-head"><h3>🔐 Safe account note</h3></div>
+<div class="dash-notice">Your current V8 social features are browser-based. Real cross-device chat and social syncing needs an online backend later.</div>
+</div>
+</aside>
+</div>
+</section>
+<section class="panel" id="study">
+<div id="studyContent"></div>
+</section>
+<section class="panel" id="admin">
+<button class="back" onclick="goHome()">← Back to Website</button>
+<div class="admin-box" id="adminLogin">
+<div style="text-align:center;max-width:520px;margin:auto">
+<div style="font-size:54px">🔐</div>
+<h2>Private Admin Login</h2>
+<p class="muted">Only the website owner should use this control center.</p>
+<label style="display:block;text-align:left;font-size:13px;font-weight:800;margin-top:16px">Username</label>
+<input autocomplete="username" id="adminUser" placeholder="Enter admin username" type="text"/>
+<label style="display:block;text-align:left;font-size:13px;font-weight:800">Password</label>
+<input autocomplete="current-password" id="adminPass" placeholder="Enter admin password" type="password"/>
+<button class="action primary" onclick="adminLogin()" style="width:100%">🔓 Login</button>
+<div id="adminLoginMsg" style="margin-top:12px;font-weight:800"></div>
+<p class="help" style="margin-top:18px">Change the username and password in the JavaScript before publishing.</p>
+</div>
+</div>
+<div class="hidden" id="adminTools">
+<div class="master-banner">
+<div style="font-size:12px;font-weight:900;letter-spacing:1px;opacity:.85">V7 MASTER CONTROL</div>
+<h2 style="margin:8px 0 4px">👑 RYUK ADMIN DASHBOARD</h2>
+<p style="margin:0;color:#ecebff">Manage your V7 content and the prebuilt website features without changing the public design.</p>
+</div>
+<div class="master-grid">
+<aside class="master-side">
+<button class="active" onclick="masterTab('dashPanel',this)">📊 Dashboard</button>
+<button onclick="masterTab('contentPanel',this)">📚 Content</button>
+<button onclick="masterTab('communityPanel',this)">👥 Community</button>
+<button onclick="masterTab('sitePanel',this)">🎨 Website</button>
+<button onclick="masterTab('featurePanel',this)">🧩 Features</button>
+<button onclick="masterTab('usersPanel',this)">👤 Users</button>
+<button onclick="masterTab('backupPanel',this)">💾 Backup</button>
+<button onclick="adminLogout()">🚪 Logout</button>
+</aside>
+<div class="master-main">
+<div class="master-panel active" id="dashPanel">
+<div class="master-stats">
+<div class="master-stat"><b id="mUsers">0</b><span>Registered users</span></div>
+<div class="master-stat"><b id="mPosts">0</b><span>Community posts</span></div>
+<div class="master-stat"><b id="mQA">0</b><span>Questions</span></div>
+<div class="master-stat"><b id="mFiles">0</b><span>Study files</span></div>
+</div>
+<div class="admin-box">
+<h3>⚡ Quick Controls</h3>
+<div class="inline-actions">
+<button class="action primary" onclick="masterTab('contentPanel',document.querySelectorAll('.master-side button')[1]);showAdminContent('qa')">➕ Add Q&amp;A</button>
+<button class="action primary" onclick="masterTab('contentPanel',document.querySelectorAll('.master-side button')[1]);showAdminContent('file')">📤 Upload File</button>
+<button class="action secondary" onclick="masterTab('communityPanel',document.querySelectorAll('.master-side button')[2])">🛡️ Moderate Posts</button>
+<button class="action secondary" onclick="masterTab('sitePanel',document.querySelectorAll('.master-side button')[3])">📢 Announcement</button>
+</div>
+</div>
+<div class="admin-box">
+<h3>ℹ️ V7 Control Scope</h3>
+<p class="muted">You can control the content and built-in features from here. New programming functions still require updating the website code and redeploying it.</p>
+</div>
+</div>
+<div class="master-panel" id="contentPanel">
+<div class="tabs">
+<button class="action tab active" id="mQaBtn" onclick="showAdminContent('qa')">➕ Q&amp;A</button>
+<button class="action tab" id="mFileBtn" onclick="showAdminContent('file')">📤 PDF / Photo</button>
+<button class="action tab" id="mManageBtn" onclick="showAdminContent('manage')">🗂️ Manage</button>
+</div>
+<div class="admin-box" id="mQa">
+<h3>➕ Add Question &amp; Answer</h3>
+<label>Subject</label><select id="qaSubject"></select>
+<label>Model Set</label><select id="qaSet"></select>
+<label>Chapter / Topic</label><input id="qaTopic" placeholder="e.g. Heat, Algebra, Grammar, ICT"/>
+<label>Question</label><textarea id="qaQuestion" placeholder="Write the question..."></textarea>
+<label>Answer</label><textarea id="qaAnswer" placeholder="Write the answer..."></textarea>
+<button class="action primary" onclick="addQA()">➕ Add Q&amp;A</button>
+<div class="status" id="qaStatus"></div>
+</div>
+<div class="admin-box hidden" id="mFile">
+<h3>📤 Upload PDF / Photo</h3>
+<label>Subject</label><select id="fileSubject"></select>
+<label>Model Set</label><select id="fileSet"></select>
+<label>Title</label><input id="fileTitle" placeholder="e.g. Science Set 4"/>
+<div class="drop" id="drop">
+<div style="font-size:40px">📄</div>
+<b>Choose a PDF or photo</b>
+<div class="help">You can also drag and drop a file here.</div>
+<input accept=".pdf,image/*" id="fileInput" type="file"/>
+<div class="small" id="chosenFile"></div>
+</div>
+<button class="action primary" onclick="uploadFile()" style="margin-top:12px">⬆️ Upload Material</button>
+<div class="status" id="fileStatus"></div>
+</div>
+<div class="admin-box hidden" id="mManage">
+<h3>🗂️ Manage Content</h3>
+<div id="manageList"></div>
+</div>
+</div>
+<div class="master-panel" id="communityPanel">
+<div class="admin-box">
+<h3>🛡️ Community Control</h3>
+<p class="muted">The admin can remove any post. Your V7 public community feed remains unchanged.</p>
+<div id="adminPosts"></div>
+</div>
+</div>
+<div class="master-panel" id="sitePanel">
+<div class="admin-box">
+<h3>🎨 Website Controls</h3>
+<label>Browser tab title</label>
+<input id="adminSiteTitle" placeholder="RYUK STUDY SET • Class 8"/>
+<label>Welcome heading</label>
+<input id="adminWelcome" placeholder="RYUK STUDY SET"/>
+<label>Welcome subtitle</label>
+<input id="adminSubtitle" placeholder="Class 8 Question &amp; Answer Hub"/>
+<label>Announcement</label>
+<textarea id="adminAnnouncement" placeholder="Important exam announcement..."></textarea>
+<button class="action primary" onclick="saveAdminSite()">💾 Save Settings</button>
+<button class="action secondary" onclick="clearAdminAnnouncement()">🧹 Clear Announcement</button>
+<div class="status" id="siteStatus"></div>
+<div class="master-note" id="sitePreview" style="margin-top:14px">No announcement set.</div>
+</div>
+</div>
+<div class="master-panel" id="featurePanel">
+<div class="admin-box">
+<h3>🧩 Built-in Feature Controls</h3>
+<p class="muted">Turn V7 modules on/off. This does not modify the public design.</p>
+<div class="master-mini-grid" id="featureList"></div>
+</div>
+</div>
+<div class="master-panel" id="usersPanel">
+<div class="admin-box">
+<h3>👤 Registered Accounts</h3>
+<p class="muted">This V7 version stores accounts locally in the browser, so this list only contains accounts created in this browser.</p>
+<div id="adminUsers"></div>
+</div>
+</div>
+<div class="master-panel" id="backupPanel">
+<div class="admin-box">
+<h3>💾 Master Backup</h3>
+<p class="muted">Export your local questions, files, community posts, users, site settings and feature settings.</p>
+<button class="action primary" onclick="exportMasterV7()">⬇️ Export Master Backup</button>
+<label style="display:block;font-size:13px;font-weight:800;margin-top:14px">Restore backup</label>
+<input accept=".json" id="masterRestoreV7" type="file"/>
+<button class="action secondary" onclick="restoreMasterV7()">♻️ Restore Backup</button>
+<div class="status" id="masterBackupStatus"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="panel" id="searchPanel">
+<button class="back" onclick="goHome()">← Back</button>
+<h2>🔎 Search Results</h2>
+<div id="results"></div>
+</section>
+</main>
+<footer>
+<div>📚 RYUK STUDY SET • Class 8 • Old Is Gold 2083</div>
+<div class="small">Built for organized study: subjects → model sets → Q&amp;A / files</div>
+</footer>
+<script>
+const SETS=[1,2,3,4,5,6,7,8,9,10];
+const sourcePages={
+  1:["assets/source-page-2.jpg"],
+  2:["assets/source-page-3.jpg","assets/source-page-4.jpg"],
+  3:["assets/source-page-5.jpg"]
+};
+
+const SUBJECTS=[
+  {id:"nepali",name:"Nepali",icon:"🇳🇵",desc:"Nepali language, grammar & literature",accent:"#ef4444",soft:"#fff1f2"},
+  {id:"english",name:"English",icon:"🇬🇧",desc:"Grammar, reading & literature",accent:"#2563eb",soft:"#eff6ff"},
+  {id:"math",name:"Mathematics",icon:"➗",desc:"Numbers, algebra, geometry & more",accent:"#7c3aed",soft:"#f5f3ff"},
+  {id:"science",name:"Science",icon:"🔬",desc:"Physics, chemistry, biology & environment",accent:"#059669",soft:"#ecfdf5"},
+  {id:"social",name:"Social Studies",icon:"🌍",desc:"Society, geography, history & civics",accent:"#d97706",soft:"#fffbeb"},
+  {id:"health",name:"Health, Physical & Creative Arts",icon:"❤️",desc:"Health, physical education & creative activities",accent:"#e11d48",soft:"#fff1f2"},
+  {id:"computer",name:"Computer / ICT",icon:"💻",desc:"Computer, internet, ICT & digital skills",accent:"#0891b2",soft:"#ecfeff"},
+  {id:"occupation",name:"Occupation, Business & Technology",icon:"🛠️",desc:"Practical skills, business & technology",accent:"#475569",soft:"#f1f5f9"},
+  {id:"moral",name:"Moral / Life Skills",icon:"🌱",desc:"Values, life skills & personal development",accent:"#16a34a",soft:"#f0fdf4"},
+  {id:"other",name:"Other / School Notes",icon:"📚",desc:"Other Class 8 material, notes & exams",accent:"#9333ea",soft:"#faf5ff"}
+];
+
+let db=null;
+let selectedFile=null;
+
+function subjectById(id){return SUBJECTS.find(s=>s.id===id)}
+function subjectName(id){return subjectById(id)?.name||"Other"}
+
+function initDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open("RyukStudySetV5",3);
+    req.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains("qa")) d.createObjectStore("qa",{keyPath:"id",autoIncrement:true});
+      if(!d.objectStoreNames.contains("files")) d.createObjectStore("files",{keyPath:"id",autoIncrement:true});
+      if(!d.objectStoreNames.contains("settings")) d.createObjectStore("settings",{keyPath:"key"});
+      if(!d.objectStoreNames.contains("chats")) d.createObjectStore("chats",{keyPath:"id",autoIncrement:true});
+      if(!d.objectStoreNames.contains("chatMessages")) d.createObjectStore("chatMessages",{keyPath:"id",autoIncrement:true});
+      if(!d.objectStoreNames.contains("reels")) d.createObjectStore("reels",{keyPath:"id",autoIncrement:true});
+    };
+    req.onsuccess=e=>{db=e.target.result;resolve()};
+    req.onerror=()=>reject(req.error);
+  });
+}
+function store(name,mode="readonly"){return db.transaction(name,mode).objectStore(name)}
+function getAll(name){return new Promise((resolve,reject)=>{const r=store(name).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
+function put(name,obj){return new Promise((resolve,reject)=>{const r=store(name,"readwrite").add(obj);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+function remove(name,id){return new Promise((resolve,reject)=>{const r=store(name,"readwrite").delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+function clearStore(name){return new Promise((resolve,reject)=>{const r=store(name,"readwrite").clear();r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+function getOne(name,id){return new Promise((resolve,reject)=>{const r=store(name).get(id);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+function putRecord(name,obj){return new Promise((resolve,reject)=>{const r=store(name,"readwrite").put(obj);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+function hideAll(){["home","study","admin","searchPanel","account","community","chat","reels"].forEach(id=>document.getElementById(id).style.display="none")}
+function goHome(){
+  hideAll();document.body.classList.add("dashboard-home");document.getElementById("home").style.display="block";
+  document.getElementById("search").value="";
+  const ds=document.getElementById("dashSearchInput");if(ds)ds.value="";
+  renderSubjects();renderHomeReelPreview();updateDashboardProfile();updateDashboardBadge();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function openAdmin(){hideAll();document.getElementById("admin").style.display="block";scrollTo({top:0,behavior:"smooth"})}
+
+async function renderSubjects(){
+  const [qas,files]=await Promise.all([getAll("qa"),getAll("files")]);
+  const grid=document.getElementById("subjectGrid");
+  grid.innerHTML=SUBJECTS.map(s=>{
+    const q=qas.filter(x=>x.subject===s.id).length;
+    const f=files.filter(x=>x.subject===s.id).length;
+    return `<div class="subject-card" style="--accent:${s.accent};--soft:${s.soft}" onclick="openSubject('${s.id}')">
+      <div class="subject-top"><div class="subject-icon">${s.icon}</div><div class="chevron">→</div></div>
+      <div class="kicker">CLASS 8 SUBJECT</div>
+      <h3>${esc(s.name)}</h3>
+      <p>${esc(s.desc)}</p>
+      <div class="set-line"><span class="pill">10 model sets</span><span class="pill">${q} Q&A</span><span class="pill">${f} files</span></div>
+    </div>`;
+  }).join("");
+  const posts=await getAll("posts");
+  document.getElementById("subjectStats").innerHTML=`
+    <div class="stat"><b>${SUBJECTS.length}</b><span>Subjects</span></div>
+    <div class="stat"><b>10</b><span>Model sets per subject</span></div>
+    <div class="stat"><b>${qas.length}</b><span>Added questions</span></div>
+    <div class="stat"><b>${files.length}</b><span>Study files</span></div>
+    <div class="stat"><b>${posts.length}</b><span>Community posts</span></div>`;
+}
+
+async function openSubject(id){
+  const s=subjectById(id); if(!s){goHome();return}
+  hideAll();document.getElementById("study").style.display="block";
+  const [qas,files]=await Promise.all([getAll("qa"),getAll("files")]);
+  let html=`<button class="back" onclick="goHome()">← Back to Subjects</button>
+    <h2>${s.icon} ${esc(s.name)}</h2><p class="muted">Choose a model question set.</p>
+    <div class="grid">`;
+  SETS.forEach(n=>{
+    const q=qas.filter(x=>x.subject===id&&x.set===n).length;
+    const f=files.filter(x=>x.subject===id&&x.set===n).length;
+    const sourceCount=(id==="science"&&sourcePages[n])?sourcePages[n].length:0;
+    html+=`<div class="set-card" onclick="openSet('${id}',${n})">
+      <div class="set-row"><div class="set-icon">📝</div><div><h3>Model Set ${n}</h3><p>Old Is Gold 2083</p></div></div>
+      <div class="set-line"><span class="pill">${q} Q&A</span><span class="pill">${f+sourceCount} file(s)</span></div>
+    </div>`;
+  });
+  html+=`</div>`;
+  document.getElementById("studyContent").innerHTML=html;
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+async function openSet(subjectId,setNo){
+  const s=subjectById(subjectId);hideAll();document.getElementById("study").style.display="block";
+  const [qas,files]=await Promise.all([
+    getAll("qa").then(a=>a.filter(x=>x.subject===subjectId&&x.set===setNo)),
+    getAll("files").then(a=>a.filter(x=>x.subject===subjectId&&x.set===setNo))
+  ]);
+  let html=`<button class="back" onclick="openSubject('${subjectId}')">← Back to ${esc(s.name)}</button>
+    <h2>${s.icon} ${esc(s.name)} • Model Set ${setNo}</h2>`;
+  if(subjectId==="science"&&sourcePages[setNo]){
+    html+=`<div class="notice"><b>Original source pages:</b> included from the uploaded study material.</div>`;
+    sourcePages[setNo].forEach((src,i)=>html+=`<div class="small muted">Source page ${i+1}</div><img class="source-page" src="${src}" alt="${esc(s.name)} Set ${setNo} source page">`);
+  }
+  if(files.length){
+    html+=`<h3>📤 Uploaded Material</h3>`;
+    files.forEach(f=>html+=fileCard(f));
+  }
+  if(qas.length){
+    html+=`<h3>❓ Questions & Answers</h3>`;
+    qas.forEach((x,i)=>html+=`<div class="qa"><div class="qa-meta">${esc(x.topic||s.name)} • Set ${setNo}</div>
+      <h3>Q${i+1}. ${esc(x.question)}</h3>
+      <button class="action primary" onclick="toggleAnswer(this)">👁️ Show Answer</button>
+      <div class="answer"><b>Answer:</b><br>${esc(x.answer)}</div></div>`);
+  }
+  if(!files.length&&!qas.length&&!(subjectId==="science"&&sourcePages[setNo])){
+    html+=`<div class="notice">This set is ready. Add questions or upload material from the Admin page.</div>`;
+  }
+  document.getElementById("studyContent").innerHTML=html;
+  await attachFileURLs(document.getElementById("studyContent"));
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+function fileCard(f){
+  return `<div class="file-card"><div class="file-title">📎 ${esc(f.title||f.name)}</div>
+    <div class="file-meta">${esc(subjectName(f.subject))} • Set ${f.set} • ${esc(f.name)} • ${Math.max(1,Math.round(f.size/1024))} KB</div>
+    <div data-file-id="${f.id}"></div></div>`;
+}
+async function attachFileURLs(root){
+  const [files]=await Promise.all([getAll("files")]);
+  for(const el of [...root.querySelectorAll("[data-file-id]")]){
+    const f=files.find(x=>x.id===Number(el.dataset.fileId)); if(!f)continue;
+    const url=URL.createObjectURL(f.blob);
+    if(f.type==="application/pdf") el.innerHTML=`<iframe class="pdf" src="${url}" title="${esc(f.name)}"></iframe><p><a href="${url}" target="_blank">Open PDF in new tab</a></p>`;
+    else if(f.type.startsWith("image/")) el.innerHTML=`<img class="preview" src="${url}" alt="${esc(f.name)}"><p><a href="${url}" target="_blank">Open image in new tab</a></p>`;
+    else el.innerHTML=`<p><a href="${url}" download="${esc(f.name)}">Download file</a></p>`;
+  }
+}
+function toggleAnswer(btn){
+  const a=btn.nextElementSibling,show=a.style.display!=="block";a.style.display=show?"block":"none";btn.textContent=show?"🙈 Hide Answer":"👁️ Show Answer";
+}
+
+function fillSelects(){
+  document.getElementById("qaSubject").innerHTML=SUBJECTS.map(s=>`<option value="${s.id}">${s.icon} ${esc(s.name)}</option>`).join("");
+  document.getElementById("fileSubject").innerHTML=SUBJECTS.map(s=>`<option value="${s.id}">${s.icon} ${esc(s.name)}</option>`).join("");
+  const setOpts=SETS.map(n=>`<option value="${n}">Model Set ${n}</option>`).join("");
+  document.getElementById("qaSet").innerHTML=setOpts;document.getElementById("fileSet").innerHTML=setOpts;
+}
+
+async function addQA(){
+  const subject=document.getElementById("qaSubject").value,set=Number(document.getElementById("qaSet").value);
+  const topic=document.getElementById("qaTopic").value.trim(),question=document.getElementById("qaQuestion").value.trim(),answer=document.getElementById("qaAnswer").value.trim();
+  if(!question||!answer){status("qaStatus","❌ Please enter both question and answer.");return}
+  await put("qa",{subject,set,topic,question,answer,created:new Date().toISOString()});
+  document.getElementById("qaQuestion").value="";document.getElementById("qaAnswer").value="";
+  status("qaStatus","✅ Q&A added successfully.");await renderSubjects();await refreshMaster();
+}
+function status(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display="block";setTimeout(()=>e.style.display="none",3200)}
+
+const drop=document.getElementById("drop");
+drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("drag")});
+drop.addEventListener("dragleave",()=>drop.classList.remove("drag"));
+drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("drag");const f=e.dataTransfer.files?.[0];if(f){selectedFile=f;document.getElementById("fileInput").value="";showChosenFile()}});
+document.getElementById("fileInput").addEventListener("change",e=>{selectedFile=e.target.files?.[0]||null;showChosenFile()});
+function showChosenFile(){document.getElementById("chosenFile").textContent=selectedFile?`Selected: ${selectedFile.name}`:""}
+
+async function uploadFile(){
+  const f=selectedFile||document.getElementById("fileInput").files?.[0];
+  if(!f){status("fileStatus","❌ Please choose a PDF or photo.");return}
+  const title=document.getElementById("fileTitle").value.trim()||f.name;
+  await put("files",{subject:document.getElementById("fileSubject").value,set:Number(document.getElementById("fileSet").value),title,name:f.name,type:f.type||"application/octet-stream",size:f.size,blob:f,created:new Date().toISOString()});
+  selectedFile=null;document.getElementById("fileInput").value="";document.getElementById("chosenFile").textContent="";document.getElementById("fileTitle").value="";
+  status("fileStatus","✅ File uploaded successfully to this browser.");await renderSubjects();await refreshMaster();
+}
+
+async function renderManage(){
+  const [files,qas,posts]=await Promise.all([getAll("files"),getAll("qa"),getAll("posts")]);
+  const box=document.getElementById("manageList");
+  if(!files.length&&!qas.length&&!posts.length){box.innerHTML=`<p class="muted">No added material yet.</p>`;return}
+  let html="";
+  files.forEach(f=>html+=`<div class="manage-row"><div class="manage-text"><b>📎 ${esc(f.title||f.name)}</b><span>${esc(subjectName(f.subject))} • Set ${f.set} • ${esc(f.name)}</span></div><button class="action danger" onclick="deleteFile(${f.id})">Delete</button></div>`);
+  qas.forEach(x=>html+=`<div class="manage-row"><div class="manage-text"><b>❓ ${esc(x.question)}</b><span>${esc(subjectName(x.subject))} • Set ${x.set} • ${esc(x.topic||"")}</span></div><button class="action danger" onclick="deleteQA(${x.id})">Delete</button></div>`);
+  posts.forEach(p=>html+=`<div class="manage-row"><div class="manage-text"><b>👥 ${esc(authorName(p.author))}: ${esc((p.text||"Photo/video post").slice(0,90))}</b><span>${niceTime(p.createdAt)} • ${p.mediaType?"Media":"Text"} • ${p.likes?.length||0} likes</span></div><button class="action danger" onclick="adminDeletePost(${p.id})">Delete</button></div>`);
+  box.innerHTML=html;
+}
+async function adminDeletePost(id){if(confirm("Delete this community post?")){await remove("posts",id);await renderManage();if(document.getElementById("community").style.display!=="none")renderCommunity();}}
+async function deleteFile(id){if(confirm("Delete this uploaded file?")){await remove("files",id);await renderManage();await renderSubjects()}}
+async function deleteQA(id){if(confirm("Delete this question and answer?")){await remove("qa",id);await renderManage();await renderSubjects()}}
+
+function login(){
+  const pin=document.getElementById("pin").value;
+  if(pin==="2083"){sessionStorage.setItem("ryukAdmin","1");document.getElementById("loginBox").classList.add("hidden");document.getElementById("adminTools").classList.remove("hidden");renderManage()}
+  else document.getElementById("loginMsg").textContent="❌ Wrong PIN.";
+}
+function ensureLogin(){
+  if(sessionStorage.getItem("ryukAdmin")==="1"){document.getElementById("loginBox").classList.add("hidden");document.getElementById("adminTools").classList.remove("hidden");renderManage()}
+}
+function showTab(id,btn){
+  document.querySelectorAll("#adminTools > .admin-box").forEach(x=>x.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  document.querySelectorAll(".tabs .tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+  if(id==="manageTab")renderManage();
+}
+
+
+/* ===== V7 MASTER ADMIN CONTROLS ===== */
+async function masterTab(id,btn){
+  document.querySelectorAll(".master-panel").forEach(e=>e.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".master-side button").forEach(e=>e.classList.remove("active"));
+  if(btn)btn.classList.add("active");
+  await refreshMaster();
+}
+async function refreshMaster(){
+  try{
+    await Promise.all([renderMasterDashboard(),renderManage(),renderAdminPosts(),renderAdminUsers(),loadAdminSite(),renderFeatureList()]);
+  }catch(e){}
+}
+async function renderMasterDashboard(){
+  const [q,f,p]=await Promise.all([getAll("qa"),getAll("files"),getAll("posts")]);
+  document.getElementById("mQA").textContent=q.length;
+  document.getElementById("mFiles").textContent=f.length;
+  document.getElementById("mPosts").textContent=p.length;
+  document.getElementById("mUsers").textContent=Object.keys(readUsers()).length;
+}
+function showAdminContent(mode){
+  ["mQa","mFile","mManage"].forEach(id=>document.getElementById(id).classList.add("hidden"));
+  ["mQaBtn","mFileBtn","mManageBtn"].forEach(id=>document.getElementById(id).classList.remove("active"));
+  const map={qa:["mQa","mQaBtn"],file:["mFile","mFileBtn"],manage:["mManage","mManageBtn"]}[mode];
+  document.getElementById(map[0]).classList.remove("hidden");
+  document.getElementById(map[1]).classList.add("active");
+  if(mode==="manage")renderManage();
+}
+async function renderAdminPosts(){
+  const posts=await getAll("posts");posts.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  const box=document.getElementById("adminPosts");
+  if(!posts.length){box.innerHTML='<p class="muted">No community posts yet.</p>';return}
+  box.innerHTML=posts.map(p=>`<div class="manage-card">
+    <b>👤 ${esc(authorName(p.author))}</b>
+    <div class="small-muted">${niceTime(p.createdAt)} • ${p.mediaType?"Media":"Text"} • ${p.likes?.length||0} likes</div>
+    <p style="white-space:pre-wrap">${esc(p.text||"Photo/video post")}</p>
+    <button class="action danger" onclick="adminDeletePost(${p.id})">🗑️ Delete Post</button>
+  </div>`).join("");
+}
+async function renderAdminUsers(){
+  const users=readUsers(),box=document.getElementById("adminUsers"),entries=Object.values(users);
+  if(!entries.length){box.innerHTML='<p class="muted">No accounts registered in this browser.</p>';return}
+  box.innerHTML=entries.map(u=>`<div class="master-row"><div class="master-item"><b>👤 ${esc(u.email)}</b><span>Joined ${u.createdAt?new Date(u.createdAt).toLocaleString():"Unknown"}</span></div></div>`).join("");
+}
+const ADMIN_FEATURES={
+  community:["👥 Community feed","Show the community module."],
+  likes:["❤️ Likes","Allow likes in the community."],
+  comments:["💬 Comments","Allow comments in the community."],
+  accounts:["👤 Login / Sign Up","Show user accounts."],
+  uploads:["📤 Admin uploads","Keep admin upload tools."],
+  search:["🔍 Search","Show question search."],
+  dark:["🌙 Dark mode","Show dark mode button."]
+};
+const ADMIN_FEATURE_KEY="ryukAdminFeaturesV7";
+function featureStateV7(){
+  try{return {community:true,likes:true,comments:true,accounts:true,uploads:true,search:true,dark:true,...JSON.parse(localStorage.getItem(ADMIN_FEATURE_KEY)||"{}")}}catch(e){return {community:true,likes:true,comments:true,accounts:true,uploads:true,search:true,dark:true}}
+}
+async function renderFeatureList(){
+  const st=featureStateV7();
+  document.getElementById("featureList").innerHTML=Object.entries(ADMIN_FEATURES).map(([k,v])=>`<div class="master-mini">
+    <div class="master-row"><div><b>${v[0]}</b><div class="small-muted">${v[1]}</div></div>
+    <label class="master-toggle"><input type="checkbox" ${st[k]?"checked":""} onchange="setFeatureV7('${k}',this.checked)"><span class="master-slider"></span></label></div>
+  </div>`).join("");
+}
+function setFeatureV7(k,v){const st=featureStateV7();st[k]=v;localStorage.setItem(ADMIN_FEATURE_KEY,JSON.stringify(st));applyFeatureV7(st)}
+function applyFeatureV7(st=featureStateV7()){
+  document.querySelectorAll('.top-btn[onclick="openCommunity()"]').forEach(e=>e.classList.toggle("hidden",!st.community));
+  const a=document.getElementById("accountBtn");if(a)a.classList.toggle("hidden",!st.accounts);
+  const dark=[...document.querySelectorAll('.top-btn')].find(b=>b.textContent.includes("Dark"));if(dark)dark.classList.toggle("hidden",!st.dark);
+  const search=document.getElementById("search");if(search)search.closest(".search")?.classList.toggle("hidden",!st.search);
+}
+async function loadAdminSite(){
+  const title=(await getOne("settings","siteTitle"))?.value||document.title;
+  const heading=(await getOne("settings","welcomeHeading"))?.value||document.querySelector(".welcome h1").textContent;
+  const subtitle=(await getOne("settings","welcomeSubtitle"))?.value||document.querySelector(".welcome p").textContent;
+  const ann=(await getOne("settings","announcement"))?.value||"";
+  const vals=[["adminSiteTitle",title],["adminWelcome",heading],["adminSubtitle",subtitle],["adminAnnouncement",ann]];
+  vals.forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.value=v});
+  document.getElementById("sitePreview").textContent=ann||"No announcement set.";
+}
+async function saveAdminSite(){
+  const title=document.getElementById("adminSiteTitle").value.trim()||"RYUK STUDY SET";
+  const heading=document.getElementById("adminWelcome").value.trim()||"RYUK STUDY SET";
+  const subtitle=document.getElementById("adminSubtitle").value.trim();
+  const ann=document.getElementById("adminAnnouncement").value.trim();
+  await Promise.all([
+    putRecord("settings",{key:"siteTitle",value:title}),
+    putRecord("settings",{key:"welcomeHeading",value:heading}),
+    putRecord("settings",{key:"welcomeSubtitle",value:subtitle}),
+    putRecord("settings",{key:"announcement",value:ann})
+  ]);
+  document.title=title;document.querySelector(".welcome h1").textContent=heading;document.querySelector(".welcome p").textContent=subtitle;
+  let box=document.getElementById("announcementBox");
+  if(box){box.classList.toggle("hidden",!ann);document.getElementById("publicNotice").textContent=ann}
+  document.getElementById("sitePreview").textContent=ann||"No announcement set.";
+  status("siteStatus","✅ Website settings saved in this browser.");
+}
+async function clearAdminAnnouncement(){
+  document.getElementById("adminAnnouncement").value="";
+  await saveAdminSite();
+}
+async function exportMasterV7(){
+  const [qas,files,posts,settings]=await Promise.all([getAll("qa"),getAll("files"),getAll("posts"),getAll("settings")]);
+  const users=readUsers();
+  async function enc(blob){
+    if(!blob)return null;const b=new Uint8Array(await blob.arrayBuffer());let s="";const c=0x8000;
+    for(let i=0;i<b.length;i+=c)s+=String.fromCharCode(...b.subarray(i,i+c));return btoa(s);
+  }
+  const fs=[];for(const f of files){const x={...f,blob64:await enc(f.blob)};delete x.blob;fs.push(x)}
+  const ps=[];for(const p of posts){const x={...p,media64:await enc(p.media)};delete x.media;ps.push(x)}
+  const backup={version:7,created:new Date().toISOString(),qas,files:fs,posts:ps,settings,users,features:featureStateV7()};
+  const blob=new Blob([JSON.stringify(backup)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="ryuk-study-set-v7-master-backup.json";a.click();URL.revokeObjectURL(url);status("masterBackupStatus","✅ Master backup exported.");
+}
+async function restoreMasterV7(){
+  const f=document.getElementById("masterRestoreV7").files?.[0];if(!f){status("masterBackupStatus","❌ Choose a backup JSON file.");return}
+  try{
+    const d=JSON.parse(await f.text());
+    await Promise.all([clearStore("qa"),clearStore("files"),clearStore("posts"),clearStore("settings")]);
+    for(const q of d.qas||[]){const x={...q};delete x.id;await put("qa",x)}
+    for(const x of d.files||[]){const bin=atob(x.blob64||""),a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);const y={...x,blob:new Blob([a],{type:x.type})};delete y.blob64;delete y.id;await put("files",y)}
+    for(const p of d.posts||[]){let media=null;if(p.media64){const bin=atob(p.media64),a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);media=new Blob([a],{type:p.mediaType||"application/octet-stream"})}const y={...p,media};delete y.media64;delete y.id;await put("posts",y)}
+    for(const s of d.settings||[]){delete s.id;await putRecord("settings",s)}
+    if(d.users)localStorage.setItem(USER_KEY,JSON.stringify(d.users));
+    if(d.features)localStorage.setItem(ADMIN_FEATURE_KEY,JSON.stringify(d.features));
+    await refreshMaster();status("masterBackupStatus","✅ Master backup restored.");
+  }catch(e){status("masterBackupStatus","❌ Could not restore that backup.")}
+}
+
+async function searchAll(){
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  if(!q){goHome();return}
+  const qas=await getAll("qa");
+  const found=qas.filter(x=>(x.question+" "+x.answer+" "+(x.topic||"")+" "+subjectName(x.subject)).toLowerCase().includes(q));
+  hideAll();document.getElementById("searchPanel").style.display="block";
+  document.getElementById("results").innerHTML=found.length?found.map(x=>`<div class="qa"><div class="qa-meta">${esc(subjectName(x.subject))} • Set ${x.set} • ${esc(x.topic||"")}</div><h3>${esc(x.question)}</h3><p>${esc(x.answer)}</p></div>`).join(""):`<div class="notice">No added Q&A matched “${esc(q)}”.</div>`;
+}
+
+async function exportBackup(){
+  const [files,qas,posts]=await Promise.all([getAll("files"),getAll("qa"),getAll("posts")]);
+  async function encodeBlob(blob){
+    if(!blob)return null;
+    const buf=await blob.arrayBuffer();let bin="";const bytes=new Uint8Array(buf);const chunk=0x8000;
+    for(let i=0;i<bytes.length;i+=chunk)bin+=String.fromCharCode(...bytes.subarray(i,i+chunk));
+    return btoa(bin);
+  }
+  const fileExports=[];
+  for(const f of files){
+    const copy={...f,blobBase64:await encodeBlob(f.blob)};delete copy.blob;fileExports.push(copy);
+  }
+  const postExports=[];
+  for(const p of posts){
+    const copy={...p,mediaBase64:await encodeBlob(p.media)};delete copy.media;postExports.push(copy);
+  }
+  const backup={version:2,created:new Date().toISOString(),qas,files:fileExports,posts:postExports};
+  const blob=new Blob([JSON.stringify(backup)],{type:"application/json"});
+  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="ryuk-study-set-backup.json";a.click();URL.revokeObjectURL(url);
+  status("backupStatus","✅ Backup exported.");
+}
+async function restoreBackup(){
+  const f=document.getElementById("restoreInput").files?.[0];if(!f){status("backupStatus","❌ Choose a backup JSON file.");return}
+  try{
+    const data=JSON.parse(await f.text());
+    if(!Array.isArray(data.qas)||!Array.isArray(data.files))throw new Error("Invalid backup");
+    await clearStore("qa");await clearStore("files");await clearStore("posts");
+    for(const q of data.qas){const copy={...q};delete copy.id;await put("qa",copy)}
+    for(const x of data.files){
+      const bin=atob(x.blobBase64||""),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+      const copy={...x,blob:new Blob([arr],{type:x.type})};delete copy.blobBase64;delete copy.id;await put("files",copy);
+    }
+    for(const x of (data.posts||[])){
+      let media=null;
+      if(x.mediaBase64){const bin=atob(x.mediaBase64),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);media=new Blob([arr],{type:x.mediaType||"application/octet-stream"})}
+      const copy={...x,media};delete copy.mediaBase64;delete copy.id;await put("posts",copy);
+    }
+    status("backupStatus","✅ Backup restored.");await renderSubjects();await renderManage();
+  }catch(err){status("backupStatus","❌ Could not restore that file.")}
+}
+
+function toggleDark(){document.body.classList.toggle("dark");localStorage.setItem("ryukDark",document.body.classList.contains("dark")?"1":"0")}
+if(localStorage.getItem("ryukDark")==="1")document.body.classList.add("dark");
+
+
+
+
+/* ==========================
+   COMMUNITY / SOCIAL FEED
+========================== */
+let selectedPostMedia=null;
+
+function openCommunity(){
+  hideAll();
+  document.getElementById("community").style.display="block";
+  closePostComposer();
+  renderCommunity();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openPostComposer(){
+  document.getElementById("communityComposer").classList.remove("hidden");
+  const logged=!!currentUser();
+  document.getElementById("postLoginNotice").classList.toggle("hidden",logged);
+  document.getElementById("postForm").classList.toggle("hidden",!logged);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function closePostComposer(){
+  document.getElementById("communityComposer").classList.add("hidden");
+}
+function initPostMedia(){
+  const input=document.getElementById("postMedia");
+  if(!input)return;
+  input.addEventListener("change",()=>{
+    selectedPostMedia=input.files?.[0]||null;
+    showPostPreview();
+  });
+}
+function showPostPreview(){
+  const box=document.getElementById("postPreview");
+  const name=document.getElementById("postMediaName");
+  box.innerHTML="";
+  name.textContent=selectedPostMedia?`Selected: ${selectedPostMedia.name}`:"";
+  if(!selectedPostMedia)return;
+  if(selectedPostMedia.size>50*1024*1024){
+    name.textContent="❌ File is too large. Maximum 50 MB.";
+    selectedPostMedia=null;
+    document.getElementById("postMedia").value="";
+    return;
+  }
+  const url=URL.createObjectURL(selectedPostMedia);
+  if(selectedPostMedia.type.startsWith("image/")){
+    box.innerHTML=`<img class="post-media" style="max-height:350px" src="${url}" alt="Preview">`;
+  }else if(selectedPostMedia.type.startsWith("video/")){
+    box.innerHTML=`<video class="post-media" style="max-height:350px" controls src="${url}"></video>`;
+  }
+}
+async function createPost(){
+  if(!currentUser()){
+    document.getElementById("postLoginNotice").classList.remove("hidden");
+    document.getElementById("postForm").classList.add("hidden");
+    return;
+  }
+  const text=document.getElementById("postText").value.trim();
+  if(!text && !selectedPostMedia){
+    status("postStatus","❌ Add some text or choose a photo/video.");
+    return;
+  }
+  if(selectedPostMedia && selectedPostMedia.size>50*1024*1024){
+    status("postStatus","❌ Maximum upload size is 50 MB.");
+    return;
+  }
+  await put("posts",{
+    author:currentUser(),
+    text,
+    media:selectedPostMedia||null,
+    mediaType:selectedPostMedia?.type||"",
+    mediaName:selectedPostMedia?.name||"",
+    createdAt:Date.now(),
+    likes:[],
+    comments:[]
+  });
+  document.getElementById("postText").value="";
+  document.getElementById("postMedia").value="";
+  selectedPostMedia=null;
+  document.getElementById("postPreview").innerHTML="";
+  document.getElementById("postMediaName").textContent="";
+  status("postStatus","✅ Post published!");
+  renderCommunity();
+}
+
+function niceTime(ts){
+  const diff=Math.max(0,Date.now()-Number(ts||0));
+  const mins=Math.floor(diff/60000),hrs=Math.floor(mins/60),days=Math.floor(hrs/24);
+  if(mins<1)return"just now"; if(mins<60)return`${mins} min ago`; if(hrs<24)return`${hrs} hr ago`; if(days<7)return`${days} day${days===1?"":"s"} ago`;
+  return new Date(ts).toLocaleDateString();
+}
+function authorName(email){
+  return String(email||"").split("@")[0]||"Student";
+}
+function escapePostUrlName(v){return String(v||"").replace(/"/g,"&quot;")}
+
+async function renderCommunity(){
+  const posts=await getAll("posts");
+  posts.sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
+  document.getElementById("feedStats").innerHTML=`
+    <div class="stat"><b>${posts.length}</b><span>Posts</span></div>
+    <div class="stat"><b>${posts.filter(p=>p.mediaType?.startsWith("image/")).length}</b><span>Photo posts</span></div>
+    <div class="stat"><b>${posts.filter(p=>p.mediaType?.startsWith("video/")).length}</b><span>Video posts</span></div>`;
+  const feed=document.getElementById("feed");
+  if(!posts.length){
+    feed.innerHTML=`<div class="empty-feed"><div style="font-size:45px">🌟</div><h3>No posts yet</h3><p>Be the first to share a useful Class 8 study post.</p><button class="action primary" onclick="openPostComposer()">➕ Create First Post</button></div>`;
+    return;
+  }
+  feed.innerHTML=posts.map(p=>{
+    const liked=(p.likes||[]).includes(currentUser());
+    const comments=p.comments||[];
+    let media="";
+    if(p.mediaType?.startsWith("image/")) media=`<div data-post-media="${p.id}"></div>`;
+    else if(p.mediaType?.startsWith("video/")) media=`<div data-post-media="${p.id}"></div>`;
+    return `<article class="post">
+      <div class="post-head">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="avatar">${esc(authorName(p.author).slice(0,1).toUpperCase())}</div>
+          <div><div class="author">${esc(authorName(p.author))}</div><div class="post-time">${niceTime(p.createdAt)}</div></div>
+        </div>
+        ${currentUser()===p.author?`<button class="action secondary" onclick="deletePost(${p.id})">🗑️</button>`:""}
+      </div>
+      ${p.text?`<div class="post-caption">${esc(p.text)}</div>`:""}
+      ${media}
+      <div class="post-actions">
+        <button class="action ${liked?"like-btn liked":"secondary"}" onclick="toggleLike(${p.id})">❤️ ${p.likes?.length||0} Like</button>
+        <span class="pill">💬 ${comments.length} Comments</span>
+      </div>
+      <div id="comments-${p.id}">
+        ${comments.slice(-5).map(c=>`<div class="comment"><b>${esc(authorName(c.author))}</b>: ${esc(c.text)}</div>`).join("")}
+      </div>
+      <div class="comment-row">
+        <input id="comment-${p.id}" placeholder="${currentUser()?"Write a comment...":"Login to comment"}" ${currentUser()?"":"disabled"}>
+        <button class="action primary" onclick="addComment(${p.id})">Send</button>
+      </div>
+    </article>`;
+  }).join("");
+  await attachPostMedia();
+}
+async function attachPostMedia(){
+  const posts=await getAll("posts");
+  for(const el of [...document.querySelectorAll("[data-post-media]")]){
+    const p=posts.find(x=>x.id===Number(el.dataset.postMedia));if(!p||!p.media)return;
+    const url=URL.createObjectURL(p.media);
+    if(p.mediaType?.startsWith("image/"))el.innerHTML=`<img class="post-media" src="${url}" alt="${escapePostUrlName(p.mediaName)}">`;
+    else if(p.mediaType?.startsWith("video/"))el.innerHTML=`<video class="post-media" controls preload="metadata" src="${url}"></video>`;
+  }
+}
+async function toggleLike(id){
+  if(!currentUser()){openAccount();return}
+  const p=await getOne("posts",id);if(!p)return;
+  p.likes=Array.isArray(p.likes)?p.likes:[];
+  const i=p.likes.indexOf(currentUser());
+  if(i>=0)p.likes.splice(i,1);else p.likes.push(currentUser());
+  await putRecord("posts",p);renderCommunity();
+}
+async function addComment(id){
+  if(!currentUser()){openAccount();return}
+  const input=document.getElementById("comment-"+id);const text=input?.value.trim();if(!text)return;
+  const p=await getOne("posts",id);if(!p)return;
+  p.comments=Array.isArray(p.comments)?p.comments:[];
+  p.comments.push({author:currentUser(),text,createdAt:Date.now()});
+  await putRecord("posts",p);renderCommunity();
+}
+async function deletePost(id){
+  if(!currentUser())return;
+  const p=await getOne("posts",id);if(!p||p.author!==currentUser())return;
+  if(confirm("Delete your post?")){await remove("posts",id);renderCommunity();}
+}
+
+
+/* ==========================
+   USER LOGIN / SIGN UP
+   Static V6 account system.
+========================== */
+const USER_KEY = "ryukStudyUsersV6";
+const USER_SESSION = "ryukStudyCurrentUserV6";
+
+function readUsers(){
+  try{return JSON.parse(localStorage.getItem(USER_KEY)||"{}")}catch(e){return {}}
+}
+function writeUsers(users){
+  localStorage.setItem(USER_KEY,JSON.stringify(users));
+}
+function validGmail(email){
+  return /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(email.trim());
+}
+async function hashPassword(password){
+  const data = new TextEncoder().encode(password);
+  const digest = await crypto.subtle.digest("SHA-256",data);
+  return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+function currentUser(){
+  return sessionStorage.getItem(USER_SESSION)||"";
+}
+function updateAccountButton(){
+  const b=document.getElementById("accountBtn");
+  const email=currentUser();
+  b.textContent=email ? "👤 "+email.split("@")[0] : "👤 Login / Sign Up";
+}
+function openAccount(){
+  hideAll();
+  document.getElementById("account").style.display="block";
+  refreshAccountView();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function switchAccountTab(mode){
+  const login=mode==="login";
+  document.getElementById("loginForm").classList.toggle("hidden",!login);
+  document.getElementById("signupForm").classList.toggle("hidden",login);
+  document.getElementById("loginTabBtn").classList.toggle("active",login);
+  document.getElementById("signupTabBtn").classList.toggle("active",!login);
+  document.getElementById("loginStatus").textContent="";
+  document.getElementById("signupStatus").textContent="";
+}
+function refreshAccountView(){
+  const logged=!!currentUser();
+  document.getElementById("accountTitle").textContent=logged?"Your RYUK Account":"Welcome to RYUK Study Set";
+  ["loginForm","signupForm","loginTabBtn","signupTabBtn"].forEach(id=>document.getElementById(id).classList.toggle("hidden",logged));
+  document.getElementById("accountLoggedIn").classList.toggle("hidden",!logged);
+  document.getElementById("loggedInEmail").textContent=logged?currentUser():"";
+  updateAccountButton();
+}
+async function userSignup(){
+  const email=document.getElementById("signupEmail").value.trim().toLowerCase();
+  const pass=document.getElementById("signupPassword").value;
+  const confirm=document.getElementById("signupConfirm").value;
+  const msg=document.getElementById("signupStatus");
+
+  if(!validGmail(email)){msg.textContent="❌ Please use a valid Gmail address ending with @gmail.com.";return}
+  if(pass.length<6){msg.textContent="❌ Password must be at least 6 characters.";return}
+  if(pass!==confirm){msg.textContent="❌ Passwords do not match.";return}
+
+  const users=readUsers();
+  if(users[email]){msg.textContent="❌ This Gmail is already registered. Please log in.";return}
+
+  users[email]={email,hash:await hashPassword(pass),createdAt:new Date().toISOString()};
+  writeUsers(users);
+  sessionStorage.setItem(USER_SESSION,email);
+  msg.textContent="";
+  refreshAccountView();
+}
+async function userLogin(){
+  const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+  const pass=document.getElementById("loginPassword").value;
+  const msg=document.getElementById("loginStatus");
+
+  if(!validGmail(email)){msg.textContent="❌ Please enter your Gmail address.";return}
+  const users=readUsers();
+  if(!users[email]){msg.textContent="❌ Account not found. Please Sign Up first.";return}
+  if(users[email].hash!==await hashPassword(pass)){msg.textContent="❌ Wrong password.";return}
+
+  sessionStorage.setItem(USER_SESSION,email);
+  msg.textContent="";
+  refreshAccountView();
+}
+function userLogout(){
+  sessionStorage.removeItem(USER_SESSION);
+  refreshAccountView();
+  switchAccountTab("login");
+}
+updateChatBadge();
+
+/* ==========================
+   PRIVATE ADMIN LOGIN
+   Change these two values.
+========================== */
+const ADMIN_USERNAME = "ryuk";
+const ADMIN_PASSWORD = "2083";
+
+function openAdminLogin(){
+  hideAll();
+  document.getElementById("admin").style.display="block";
+  document.getElementById("adminLogin").classList.remove("hidden");
+  document.getElementById("adminTools").classList.add("hidden");
+  document.getElementById("adminUser").value="";
+  document.getElementById("adminPass").value="";
+  document.getElementById("adminLoginMsg").textContent="";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function adminLogin(){
+  const u=document.getElementById("adminUser").value.trim();
+  const p=document.getElementById("adminPass").value;
+
+  if(u===ADMIN_USERNAME && p===ADMIN_PASSWORD){
+    sessionStorage.setItem("ryukAdminLogin","1");
+    document.getElementById("adminLogin").classList.add("hidden");
+    document.getElementById("adminTools").classList.remove("hidden");
+    refreshMaster();
+  }else{
+    document.getElementById("adminLoginMsg").textContent="❌ Wrong username or password.";
+  }
+}
+
+function adminLogout(){
+  sessionStorage.removeItem("ryukAdminLogin");
+  openAdminLogin();
+}
+
+function checkAdminSession(){
+  if(sessionStorage.getItem("ryukAdminLogin")==="1"){
+    document.getElementById("adminLogin").classList.add("hidden");
+    document.getElementById("adminTools").classList.remove("hidden");
+  }
+}
+
+
+
+/* ==========================
+   V8 CHAT + GROUPS + REELS ADD-ON
+   V7 public design remains unchanged.
+========================== */
+let activeChatId=null;
+let activeChatIsGroup=false;
+let chatRefreshTimer=null;
+
+function chatUser(){return currentUser()||""}
+function chatLabel(c){return c.type==="group"?(c.name||"Group chat"):(c.members||[]).find(x=>x!==chatUser())||"Private chat"}
+function chatMembers(c){return Array.isArray(c.members)?c.members:[]}
+function fmtChatTime(ts){return new Date(ts||Date.now()).toLocaleString()}
+function chatKeyForDM(a,b){return [a,b].sort().join("|")}
+
+async function ensureDM(other){
+  const me=chatUser(); if(!me||!other||me===other)return null;
+  const chats=await getAll("chats");
+  const key=chatKeyForDM(me,other);
+  let c=chats.find(x=>x.type==="dm"&&x.key===key);
+  if(!c){await put("chats",{type:"dm",key,members:[me,other],createdAt:Date.now(),updatedAt:Date.now()});return (await getAll("chats")).find(x=>x.key===key&&x.type==="dm");}
+  return c;
+}
+async function startNewDM(){
+  if(!chatUser()){openAccount();return}
+  const users=Object.keys(readUsers()).filter(x=>x!==chatUser());
+  const box=document.getElementById("newChatBox");
+  box.classList.remove("hidden");
+  box.innerHTML='<h3 style="margin-top:0">➕ New Private Chat</h3>'+
+    (users.length?'<label>Choose a user</label><select id="dmUser">'+users.map(u=>`<option value="${esc(u)}">${esc(authorName(u))} (${esc(u)})</option>`).join('')+'</select><button class="action primary" onclick="beginSelectedDM()">Start Chat</button> <button class="action secondary" onclick="closeNewChatBox()">Cancel</button>':'<div class="notice">No other registered users are available in this browser yet.</div>');
+}
+async function beginSelectedDM(){const other=document.getElementById("dmUser")?.value; if(!other)return;const c=await ensureDM(other);document.getElementById("newChatBox").classList.add("hidden");await openConversation(c?.id);}
+function openCreateGroup(){
+  if(!chatUser()){openAccount();return}
+  const users=Object.keys(readUsers()).filter(x=>x!==chatUser());
+  const box=document.getElementById("newChatBox");box.classList.remove("hidden");
+  box.innerHTML='<h3 style="margin-top:0">👥 Create Group</h3><label>Group name</label><input id="groupName" placeholder="e.g. Class 8 Study Group">'+
+    '<label>Add members</label><div class="chat-members">'+(users.length?users.map((u,i)=>`<label class="member-pill"><input type="checkbox" class="group-member" value="${esc(u)}"> ${esc(authorName(u))}</label>`).join(''):'<span class="muted">No other registered users in this browser.</span>')+'</div>'+
+    '<div style="margin-top:12px"><button class="action primary" onclick="createGroup()">Create Group</button> <button class="action secondary" onclick="closeNewChatBox()">Cancel</button></div>';
+}
+async function createGroup(){
+  const me=chatUser();const name=document.getElementById("groupName")?.value.trim();const members=[me,...[...document.querySelectorAll(".group-member:checked")].map(x=>x.value)];
+  if(!name){alert("Enter a group name.");return} if(members.length<2){alert("Add at least one other member.");return}
+  await put("chats",{type:"group",name,members,owner:me,createdAt:Date.now(),updatedAt:Date.now()});
+  closeNewChatBox();await renderChatList();const chats=await getAll("chats");const c=chats.filter(x=>x.type==="group"&&x.name===name&&x.owner===me).sort((a,b)=>b.id-a.id)[0];await openConversation(c?.id);
+}
+function closeNewChatBox(){document.getElementById("newChatBox").classList.add("hidden")}
+function openChat(){hideAll();document.getElementById("chat").style.display="block";renderChatList();updateChatBadge();window.scrollTo({top:0,behavior:"smooth"})}
+function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMessage()}}
+async function renderChatList(){
+  if(!chatUser()){document.getElementById("chatListItems").innerHTML='<div class="empty-feed">🔐 Please login to use chat.</div>';return}
+  const q=(document.getElementById("chatSearch")?.value||"").trim().toLowerCase();
+  const chats=(await getAll("chats")).filter(c=>chatMembers(c).includes(chatUser())).sort((a,b)=>Number(b.updatedAt||0)-Number(a.updatedAt||0));
+  const allMsgs=await getAll("chatMessages");
+  const items=chats.filter(c=>chatLabel(c).toLowerCase().includes(q)).map(c=>{
+    const last=allMsgs.filter(m=>m.chatId===c.id).sort((a,b)=>b.createdAt-a.createdAt)[0];
+    return `<div class="chat-item ${activeChatId===c.id?'active':''}" onclick="openConversation(${c.id})"><b>${c.type==='group'?'👥 ': '👤 '}${esc(chatLabel(c))}</b><span>${esc(last?.text|| (last?.mediaName?'📎 '+last.mediaName:'No messages yet'))}</span><span>${last?fmtChatTime(last.createdAt):''}</span></div>`;
+  }).join('');
+  document.getElementById("chatListItems").innerHTML=items||'<div class="empty-feed" style="border:0;border-radius:0">No conversations yet.</div>';
+}
+async function openConversation(id){
+  if(!id)return;const chats=await getAll("chats");const c=chats.find(x=>x.id===id);if(!c||!chatMembers(c).includes(chatUser()))return;
+  activeChatId=id;activeChatIsGroup=c.type==='group';
+  document.getElementById("chatWindowHead").innerHTML=`<b>${c.type==='group'?'👥 ': '👤 '}${esc(chatLabel(c))}</b><div class="small muted">${c.type==='group'?`${chatMembers(c).length} members`:'Private conversation'}</div>`;
+  document.getElementById("chatWindowTools").classList.remove("hidden");
+  document.getElementById("chatWindowTools").innerHTML=`<span class="pill">${c.type==='group'?'Group':'1-to-1'}</span>${c.type==='group'?`<span class="pill">Owner: ${esc(authorName(c.owner))}</span>`:''}<button class="action secondary" onclick="showConversationInfo()">ℹ️ Info</button>${c.type==='group'&&c.owner===chatUser()?`<button class="action danger" onclick="deleteGroup(${c.id})">Delete Group</button>`:''}`;
+  document.getElementById("chatComposer").classList.remove("hidden");
+  await markChatRead(c.id);await renderChatMessages();await renderChatList();await updateChatBadge();
+}
+async function showConversationInfo(){const c=(await getAll("chats")).find(x=>x.id===activeChatId);if(!c)return;alert((c.type==='group'?`Group: ${c.name}\nOwner: ${c.owner}`:'Private chat')+`\n\nMembers:\n${chatMembers(c).join('\n')}`)}
+async function deleteGroup(id){const c=(await getAll("chats")).find(x=>x.id===id);if(!c||c.owner!==chatUser())return;if(!confirm('Delete this group for this browser?'))return;await remove('chats',id);const ms=(await getAll('chatMessages')).filter(m=>m.chatId===id);for(const m of ms)await remove('chatMessages',m.id);activeChatId=null;document.getElementById('chatComposer').classList.add('hidden');await renderChatList();document.getElementById('chatWindowHead').innerHTML='<b>Select a conversation</b><div class="small muted">Start a private or group chat.</div>';document.getElementById('chatWindowTools').classList.add('hidden');document.getElementById('chatMessages').innerHTML='<div class="chat-empty"><div><div style="font-size:46px">💬</div><h3>No chat selected</h3></div></div>';}
+async function renderChatMessages(){
+  if(!activeChatId)return;const msgs=(await getAll("chatMessages")).filter(m=>m.chatId===activeChatId).sort((a,b)=>a.createdAt-b.createdAt);const box=document.getElementById("chatMessages");
+  box.innerHTML=msgs.length?msgs.map(m=>{let media='';if(m.mediaType?.startsWith('image/'))media=`<img src="" data-chat-media="${m.id}" style="max-width:230px;border-radius:12px;display:block;margin-top:7px">`;else if(m.mediaType?.startsWith('video/'))media=`<video controls src="" data-chat-media="${m.id}" style="max-width:260px;border-radius:12px;display:block;margin-top:7px"></video>`;return `<div class="bubble-row ${m.sender===chatUser()?'mine':''}"><div class="bubble"><b>${esc(authorName(m.sender))}</b>${m.text?`<div>${esc(m.text)}</div>`:''}${media}<small>${fmtChatTime(m.createdAt)} ${m.sender===chatUser()?`<button class="action secondary" style="padding:3px 6px;font-size:10px" onclick="deleteChatMessage(${m.id})">Delete</button>`:''}</small></div></div>`}).join(''):'<div class="chat-empty"><div><div style="font-size:42px">👋</div><h3>Start the conversation</h3><p>Send the first message.</p></div></div>';
+  await attachChatMedia();box.scrollTop=box.scrollHeight;
+}
+async function attachChatMedia(){const ms=await getAll('chatMessages');for(const e of document.querySelectorAll('[data-chat-media]')){const m=ms.find(x=>x.id===Number(e.dataset.chatMedia));if(m?.media){const u=URL.createObjectURL(m.media);e.src=u;e.onload=()=>{if(e.tagName==='IMG')URL.revokeObjectURL(u)};}}}
+async function sendChatMessage(){
+  if(!activeChatId||!chatUser())return;const text=document.getElementById('chatText').value.trim();const file=document.getElementById('chatAttachment').files?.[0];if(!text&&!file)return;if(file&&file.size>20*1024*1024){document.getElementById('chatStatus').textContent='❌ Attachment max 20 MB.';return}
+  await put('chatMessages',{chatId:activeChatId,sender:chatUser(),text,media:file||null,mediaType:file?.type||'',mediaName:file?.name||'',createdAt:Date.now(),readBy:[chatUser()]});
+  const chats=await getAll('chats'),c=chats.find(x=>x.id===activeChatId);if(c){c.updatedAt=Date.now();await putRecord('chats',c)}
+  document.getElementById('chatText').value='';document.getElementById('chatAttachment').value='';document.getElementById('chatStatus').textContent='';await renderChatMessages();await renderChatList();updateChatBadge();
+}
+async function deleteChatMessage(id){const m=(await getAll('chatMessages')).find(x=>x.id===id);if(!m||m.sender!==chatUser())return;if(confirm('Delete this message?')){await remove('chatMessages',id);await renderChatMessages();await renderChatList()}}
+async function markChatRead(chatId){const me=chatUser();const msgs=(await getAll('chatMessages')).filter(m=>m.chatId===chatId&&!m.readBy?.includes(me)&&m.sender!==me);for(const m of msgs){m.readBy=[...(m.readBy||[]),me];await putRecord('chatMessages',m)}}
+async function updateChatBadge(){
+  const b=document.getElementById('chatBadge');
+  if(!b){return}
+  if(!chatUser()){b.classList.add('hidden');const d=document.getElementById('dashboardChatBadge');if(d)d.classList.add('hidden');return}
+  const chats=(await getAll('chats')).filter(c=>chatMembers(c).includes(chatUser()));
+  const msgs=await getAll('chatMessages');
+  const n=msgs.filter(m=>chats.some(c=>c.id===m.chatId)&&m.sender!==chatUser()&&!m.readBy?.includes(chatUser())).length;
+  b.textContent=n;
+  b.classList.toggle('hidden',n<1);
+  const d=document.getElementById('dashboardChatBadge');
+  if(d){d.textContent=n;d.classList.toggle('hidden',n<1);}
+}
+
+function previewReel(){const f=document.getElementById('reelFile').files?.[0],box=document.getElementById('reelPreview');box.innerHTML='';if(!f)return;if(f.size>50*1024*1024){box.textContent='❌ Max 50 MB';document.getElementById('reelFile').value='';return}const u=URL.createObjectURL(f);box.innerHTML=`<video controls style="width:100%;max-width:320px;max-height:520px;border-radius:15px;background:#080b14" src="${u}"></video>`}
+function openReelComposer(){if(!chatUser()){openAccount();return}document.getElementById('reelComposer').classList.remove('hidden')}
+function openReels(){hideAll();document.getElementById('reels').style.display='block';renderReels();window.scrollTo({top:0,behavior:'smooth'})}
+async function publishReel(){if(!chatUser()){openAccount();return}const f=document.getElementById('reelFile').files?.[0];const cap=document.getElementById('reelCaption').value.trim();if(!f||!f.type.startsWith('video/')){status('reelStatus','❌ Choose a video file.');return}if(f.size>50*1024*1024){status('reelStatus','❌ Max 50 MB.');return}await put('reels',{author:chatUser(),caption:cap,video:f,videoType:f.type,createdAt:Date.now(),likes:[],saves:[],comments:[]});document.getElementById('reelCaption').value='';document.getElementById('reelFile').value='';document.getElementById('reelPreview').innerHTML='';status('reelStatus','✅ Reel published!');renderReels()}
+async function renderReels(){const reels=(await getAll('reels')).sort((a,b)=>b.createdAt-a.createdAt);document.getElementById('reelStats').innerHTML=`<div class="stat"><b>${reels.length}</b><span>Reels</span></div><div class="stat"><b>${reels.filter(r=>(r.likes||[]).length>0).length}</b><span>Liked reels</span></div><div class="stat"><b>${reels.filter(r=>r.author===chatUser()).length}</b><span>My reels</span></div>`;const feed=document.getElementById('reelFeed');if(!reels.length){feed.innerHTML='<div class="empty-feed" style="grid-column:1/-1">🎬 No reels yet. Upload the first study reel.</div>';return}feed.innerHTML=reels.map(r=>{const liked=(r.likes||[]).includes(chatUser()),saved=(r.saves||[]).includes(chatUser());return `<article class="reel-card"><video controls playsinline data-reel-video="${r.id}"></video><div class="reel-body"><div class="reel-meta">👤 ${esc(authorName(r.author))} • ${niceTime(r.createdAt)}</div><div class="post-caption">${esc(r.caption||'Study reel')}</div><div class="reel-actions"><button class="action secondary" onclick="toggleReelLike(${r.id})">${liked?'❤️':'🤍'} ${(r.likes||[]).length}</button><button class="action secondary" onclick="toggleReelSave(${r.id})">${saved?'🔖 Saved':'🔖 Save'}</button>${r.author===chatUser()?`<button class="action danger" onclick="deleteReel(${r.id})">Delete</button>`:''}</div><div class="reel-comments"><div>${(r.comments||[]).map(c=>`<div class="reel-comment"><b>${esc(authorName(c.user))}</b>: ${esc(c.text)}</div>`).join('')||'<span class="small muted">No comments yet.</span>'}</div><div class="comment-row"><input id="rc_${r.id}" placeholder="Write a comment..."><button class="action primary" onclick="addReelComment(${r.id})">Send</button></div></div></article>`}).join('');const rs=await getAll('reels');for(const e of document.querySelectorAll('[data-reel-video]')){const r=rs.find(x=>x.id===Number(e.dataset.reelVideo));if(r?.video)e.src=URL.createObjectURL(r.video)}}
+async function toggleReelLike(id){const r=(await getAll('reels')).find(x=>x.id===id);if(!r||!chatUser())return;r.likes=r.likes||[];r.likes=r.likes.includes(chatUser())?r.likes.filter(x=>x!==chatUser()):[...r.likes,chatUser()];await putRecord('reels',r);renderReels()}
+async function toggleReelSave(id){const r=(await getAll('reels')).find(x=>x.id===id);if(!r||!chatUser())return;r.saves=r.saves||[];r.saves=r.saves.includes(chatUser())?r.saves.filter(x=>x!==chatUser()):[...r.saves,chatUser()];await putRecord('reels',r);renderReels()}
+async function addReelComment(id){if(!chatUser())return;const input=document.getElementById('rc_'+id);const text=input?.value.trim();if(!text)return;const r=(await getAll('reels')).find(x=>x.id===id);if(!r)return;r.comments=r.comments||[];r.comments.push({user:chatUser(),text,createdAt:Date.now()});await putRecord('reels',r);renderReels()}
+async function deleteReel(id){const r=(await getAll('reels')).find(x=>x.id===id);if(!r||r.author!==chatUser())return;if(confirm('Delete this reel?')){await remove('reels',id);renderReels()}}
+
+
+
+/* ===== V9 FRONT DASHBOARD HELPERS ===== */
+async function openChatCenter(){
+  hideAll();
+  document.body.classList.remove("dashboard-home");
+  const el=document.getElementById("chat"); if(el) el.style.display="block";
+  try{await renderChatList();}catch(e){}
+  await updateChatBadge();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function syncDashSearch(){
+  const a=document.getElementById("dashSearchInput"), b=document.getElementById("search");
+  if(!a||!b)return;
+  b.value=a.value;
+  searchAll();
+}
+async function updateDashboardProfile(){
+  const u=chatUser?.() || currentUser?.() || "";
+  const name=u?authorName(u):"Student";
+  const email=u||"Not logged in";
+  ["dashProfileName","rightName"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=name});
+  const sub=document.getElementById("dashProfileSub");if(sub)sub.textContent=u?email:"Login to personalize";
+  const re=document.getElementById("rightEmail");if(re)re.textContent=email;
+  ["dashAvatar","dashComposerAvatar","rightAvatar"].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=name.slice(0,1).toUpperCase()});
+}
+async function updateDashboardBadge(){
+  const b=document.getElementById("chatBadge"), d=document.getElementById("dashboardChatBadge");
+  const txt=b?.textContent || "0";
+  const show=txt && txt!=="0";
+  if(d){d.textContent=txt;d.classList.toggle("hidden",!show)}
+}
+async function renderHomeReelPreview(){
+  const box=document.getElementById("homeReelPreview"); if(!box)return;
+  try{
+    const reels=(await getAll("reels")).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).slice(0,3);
+    if(!reels.length){
+      box.innerHTML='<div class="dash-reel-empty">🎬 No reels yet. Open Reels to publish the first short study video.</div>';
+      return;
+    }
+    box.innerHTML=`<div class="dash-mini-reels">${reels.map(r=>`
+      <div class="dash-reel" onclick="openReels()">
+        <video muted playsinline data-home-reel="${r.id}"></video>
+        <div class="overlay"><b>${esc(authorName(r.author))}</b><span>${esc((r.caption||"Study reel").slice(0,70))}</span></div>
+      </div>`).join("")}</div>`;
+    const all=await getAll("reels");
+    for(const e of document.querySelectorAll("[data-home-reel]")){
+      const r=all.find(x=>x.id===Number(e.dataset.homeReel));
+      if(r?.video){e.src=URL.createObjectURL(r.video);e.addEventListener("mouseenter",()=>e.play().catch(()=>{}));e.addEventListener("mouseleave",()=>{e.pause();e.currentTime=0});}
+    }
+  }catch(e){box.innerHTML='<div class="dash-reel-empty">🎬 Reels will appear here.</div>';}
+}
+
+initDB().then(async ()=>{fillSelects();checkAdminSession();updateAccountButton();renderSubjects();initPostMedia();loadAdminSite();applyFeatureV7();await updateChatBadge();goHome();}).catch(()=>alert("Your browser could not start local storage. Try a modern Chrome/Edge browser."));
+</script>
+</body>
+</html>
